@@ -71,7 +71,7 @@ def main(argv):
         got.manager.TweetManager.getTweets(tweetCriteria, receiveBuffer)
 
     except Exception:
-        print('YASH')
+        print('YASH Agrawal')
         print('Arguments parser error, try -h ' + arg)
     finally:
         outputFile.close()
