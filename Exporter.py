@@ -68,6 +68,7 @@ def main(argv):
         got.manager.TweetManager.getTweets(tweetCriteria, receiveBuffer)
 
     except Exception:
+        print('Exception found')
         print('Arguments parser error, try -h ' + arg)
     finally:
         outputFile.close()
