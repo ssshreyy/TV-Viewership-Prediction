@@ -9,7 +9,6 @@ if sys.version_info[0] < 3:
 else:
     import got3 as got
 
-
 def main(argv):
     if len(argv) == 0:
         print('You must pass some parameters.')
@@ -60,10 +59,8 @@ def main(argv):
 
         def receiveBuffer(tweetss):
             for t in tweetss:
-                s = translator.translate()
-                outputFile.write(('\n%s,%s,%s,%s,%s,%d,%d,"""%s""",%s,%s,%s,%s' % (
-                t.id, t.username, t.author_id, t.date.strftime("%Y-%m-%d"), t.date.strftime("%H:%M"), t.retweets,
-                t.favorites, t.text, t.mentions, t.hashtags, t.permalink, t.urls)))
+                s = translator.translate(t.text)
+                outputFile.write(('\n%s,%s,%s,%s,%s,%d,%d,"""%s""",%s,%s,%s,%s' % (t.id, t.username, t.author_id, t.date.strftime("%Y-%m-%d"), t.date.strftime("%H:%M"), t.retweets, t.favorites, t.text, t.mentions, t.hashtags, t.permalink, t.urls)))
             # outputFile.write('%s' % (sia.polarity_scores(t.text)))
             outputFile.flush()
             print('More %d saved on file...\n' % len(tweetss))
@@ -71,7 +68,6 @@ def main(argv):
         got.manager.TweetManager.getTweets(tweetCriteria, receiveBuffer)
 
     except Exception:
-        print('YASH Agrawal')
         print('Arguments parser error, try -h ' + arg)
     finally:
         outputFile.close()
