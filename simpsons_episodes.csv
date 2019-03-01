@@ -1,4 +1,4 @@
-id,title,original_air_date,production_code,season,number_in_season,number_in_series,us_viewers_in_millions,views,imdb_rating,imdb_votes,image_url,video_url
+ID,Title,Air_Date,Production_Code,Season,Episode_No.,Total_Episodes_Till_Now,US_Viewers_In_Millions,Views,IMDB_Rating,IMDB_Votes,Image_URL,Video_URL
 1,Simpsons Roasting on an Open Fire,17-12-1989,7G08,1,1,1,26.7,171408,8.2,3734,http://static-media.fxx.com/img/FX_Networks_-_FXX/617/479/Simpsons_01_08.jpg,http://www.simpsonsworld.com/video/273376835817
 2,Bart the Genius,14-01-1990,7G02,1,2,2,24.5,91423,7.8,1973,http://static-media.fxx.com/img/FX_Networks_-_FXX/265/167/Simpsons_01_02.jpg,http://www.simpsonsworld.com/video/283744835990
 3,Homer's Odyssey,21-01-1990,7G03,1,3,3,27.5,78072,7.5,1709,http://static-media.fxx.com/img/FX_Networks_-_FXX/621/883/Simpsons_01_03.jpg,http://www.simpsonsworld.com/video/273381443699
