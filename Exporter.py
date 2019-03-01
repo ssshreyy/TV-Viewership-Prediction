@@ -51,15 +51,15 @@ def main(argv):
 
         outputFile = codecs.open(outputFileName, "w+", "utf-8")
 
-        outputFile.write('ID,Username,Author ID,Date,Time,Retweets,Favorites,Text,Mentions,Hashtags,Permalink,URL')
+        outputFile.write('ID,Username,Author_ID,Date,Time,Retweets,Favorites,Text,Mentions,Hashtags,Permalink,URL')
 
         print('Searching...\n')
         # sia = vader.SentimentIntensityAnalyzer()
-        translator = Translator()
+        # translator = Translator()
 
         def receiveBuffer(tweetss):
             for t in tweetss:
-                s = translator.translate(t.text)
+                # s = translator.translate(t.text)
                 outputFile.write(('\n%s,%s,%s,%s,%s,%d,%d,"""%s""",%s,%s,%s,%s' % (t.id, t.username, t.author_id, t.date.strftime("%Y-%m-%d"), t.date.strftime("%H:%M"), t.retweets, t.favorites, t.text, t.mentions, t.hashtags, t.permalink, t.urls)))
             # outputFile.write('%s' % (sia.polarity_scores(t.text)))
             outputFile.flush()
@@ -67,9 +67,9 @@ def main(argv):
 
         got.manager.TweetManager.getTweets(tweetCriteria, receiveBuffer)
 
-    except Exception:
-        print('Exception found')
-        print('Arguments parser error, try -h ' + arg)
+    except Exception as e:
+        print(e)
+        # print('Arguments parser error, try -h ' + arg)
     finally:
         outputFile.close()
         print('Done. Output file generated "%s".' % outputFileName)
