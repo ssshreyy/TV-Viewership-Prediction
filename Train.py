@@ -40,7 +40,7 @@ def viewers_change(str_views):
 
 def main():
     viewer_data = pd.read_csv('simpsons_episodes.csv', index_col=False, usecols=range(13))
-    tweet_data = pd.read_csv('tweet-2009.csv', index_col=False, usecols=range(12))
+    tweet_data = pd.read_csv('tweet-2010.csv', index_col=False, usecols=range(12))
 
     tweet_data = tweet_data.sort_values('Date', ascending=True)
 
@@ -51,9 +51,9 @@ def main():
     # viewer_data['Original air date'] = list(map(date_change,viewer_data['Original air date']))
     # viewer_data['U.S. viewers(millions)'] = list(map(viewers_change,viewer_data['U.S. viewers(millions)']))
 
-    first_date = bisect.bisect_left(viewer_data['Air_Date'], '2009-01-01')
+    first_date = bisect.bisect_left(viewer_data['Air_Date'], '2010-01-01')
 
-    last_date = bisect.bisect_left(viewer_data['Air_Date'], '2010-01-01')
+    last_date = bisect.bisect_left(viewer_data['Air_Date'], '2011-01-01')
     temp1 = first_date
     temp2 = first_date
     final_score = list()
