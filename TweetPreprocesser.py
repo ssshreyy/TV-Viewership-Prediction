@@ -27,15 +27,15 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 # train = train.iloc[:, [0, 5]]
 # print(train.columns)
-test = pd.read_csv('testdata.manual.2009.06.14.csv', header=None, encoding='Latin-1')
-test = test.iloc[:, 5]
+test = pd.read_csv('tweet-2009.csv', encoding='Latin-1')
+test = test.loc[:, 'Text']
 
 # removing @handle
 test = pd.DataFrame(test)
 # print(train.columns)
 # train['tidy_tweet'] = np.vectorize(remove_pattern)(train.loc[:, 5], "@[\w]*")
 
-test['tidy_tweet'] = np.vectorize(remove_pattern)(test.loc[:, 5], "@[\w]*")
+test['tidy_tweet'] = np.vectorize(remove_pattern)(test.loc[:, 'Text'], "@[\w]*")
 
 # remove special characters, numbers, punctuations
 # train['tidy_tweet'] = train['tidy_tweet'].str.replace("[^a-zA-Z#]", " ")
@@ -68,4 +68,4 @@ for i in range(len(tokenized_tweet)):
 
 test['tidy_tweet'] = tokenized_tweet
 
-test['tidy_tweet'].to_csv('test_data_preprocessed.csv')
+test['tidy_tweet'].to_csv('tweet_data_preprocessed.csv')
