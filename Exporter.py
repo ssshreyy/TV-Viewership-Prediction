@@ -69,14 +69,10 @@ def main(argv):
         got.manager.TweetManager.getTweets(tweetCriteria, receiveBuffer)
 
     except Exception as e:
-        print('Exception found')
-        print(e)
-
         print('Arguments parser error, try -h ' + arg)
     finally:
         outputFile.close()
         print('Done. Output file generated "%s".' % outputFileName)
-
 
 if __name__ == '__main__':
     main(sys.argv[1:])
