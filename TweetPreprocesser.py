@@ -27,45 +27,49 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 # train = train.iloc[:, [0, 5]]
 # print(train.columns)
-test = pd.read_csv('tweet-2009.csv', encoding='Latin-1')
-test = test.loc[:, 'Text']
 
-# removing @handle
-test = pd.DataFrame(test)
-# print(train.columns)
-# train['tidy_tweet'] = np.vectorize(remove_pattern)(train.loc[:, 5], "@[\w]*")
-
-test['tidy_tweet'] = np.vectorize(remove_pattern)(test.loc[:, 'Text'], "@[\w]*")
-
-# remove special characters, numbers, punctuations
-# train['tidy_tweet'] = train['tidy_tweet'].str.replace("[^a-zA-Z#]", " ")
-test['tidy_tweet'] = test['tidy_tweet'].str.replace("[^a-zA-Z#]", " ")
-
-# Removing Short Words
-# train['tidy_tweet'] = train['tidy_tweet'].apply(lambda x: ' '.join([w for w in x.split() if len(w) > 3]))
-test['tidy_tweet'] = test['tidy_tweet'].apply(lambda x: ' '.join([w for w in x.split() if len(w) > 3]))
-# print(test.head(10))
-
-# Tokenization
-# tokenized_tweet_train = train['tidy_tweet'].apply(lambda x: x.split())
-tokenized_tweet = test['tidy_tweet'].apply(lambda x: x.split())
-
-# Stemming
-
-stemmer = PorterStemmer()
-
-# tokenized_tweet_train = tokenized_tweet_train.apply(lambda x: [stemmer.stem(i) for i in x])
-# tokenized_tweet = tokenized_tweet.apply(lambda x: [stemmer.stem(i) for i in x])
-
-#Lemmatizing
-
-lemmatizer = WordNetLemmatizer()
-tokenized_tweet = tokenized_tweet.apply(lambda x: [lemmatizer.lemmatize(i) for i in x])
+dataFiles = ['tweet-2009', 'tweet-2010', 'tweet-2011', 'tweet-2012', 'tweet-2013', 'tweet-2014', 'tweet-2015']
 
 
-for i in range(len(tokenized_tweet)):
-	tokenized_tweet[i] = ' '.join(tokenized_tweet[i])
+for j in dataFiles:
+	test = pd.read_csv(j+'.csv', encoding='Latin-1')
+	test = test.loc[:, 'Text']
 
-test['tidy_tweet'] = tokenized_tweet
+	# removing @handle
+	test = pd.DataFrame(test)
+	# print(train.columns)
+	# train['tidy_tweet'] = np.vectorize(remove_pattern)(train.loc[:, 5], "@[\w]*")
 
-test['tidy_tweet'].to_csv('tweet_data_preprocessed.csv')
+	test['tidy_tweet'] = np.vectorize(remove_pattern)(test.loc[:, 'Text'], "@[\w]*")
+
+	# remove special characters, numbers, punctuations
+	# train['tidy_tweet'] = train['tidy_tweet'].str.replace("[^a-zA-Z#]", " ")
+	test['tidy_tweet'] = test['tidy_tweet'].str.replace("[^a-zA-Z#]", " ")
+
+	# Removing Short Words
+	# train['tidy_tweet'] = train['tidy_tweet'].apply(lambda x: ' '.join([w for w in x.split() if len(w) > 3]))
+	test['tidy_tweet'] = test['tidy_tweet'].apply(lambda x: ' '.join([w for w in x.split() if len(w) > 3]))
+	# print(test.head(10))
+
+	# Tokenization
+	# tokenized_tweet_train = train['tidy_tweet'].apply(lambda x: x.split())
+	tokenized_tweet = test['tidy_tweet'].apply(lambda x: x.split())
+
+	# Stemming
+
+	stemmer = PorterStemmer()
+
+	# tokenized_tweet_train = tokenized_tweet_train.apply(lambda x: [stemmer.stem(i) for i in x])
+	# tokenized_tweet = tokenized_tweet.apply(lambda x: [stemmer.stem(i) for i in x])
+
+	#Lemmatizing
+
+	lemmatizer = WordNetLemmatizer()
+	tokenized_tweet = tokenized_tweet.apply(lambda x: [lemmatizer.lemmatize(i) for i in x])
+
+	for i in range(len(tokenized_tweet)):
+		tokenized_tweet[i] = ' '.join(tokenized_tweet[i])
+
+	test['tidy_tweet'] = tokenized_tweet
+
+	test['tidy_tweet'].to_csv(j+'-preprocessed.csv')
