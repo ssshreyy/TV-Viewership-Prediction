@@ -33,6 +33,7 @@ dataFiles = ['tweet-2009', 'tweet-2010', 'tweet-2011', 'tweet-2012', 'tweet-2013
 
 for j in dataFiles:
 	test = pd.read_csv(j+'.csv', encoding='Latin-1')
+	print(test['ID'])
 	test = test.loc[:, 'Text']
 
 	# removing @handle
