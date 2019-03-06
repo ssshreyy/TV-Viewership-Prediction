@@ -29,7 +29,7 @@ for j in dataFiles:
 	# removing @handle
 	test = pd.DataFrame(test)
 	test['tidy_tweet'] = np.vectorize(remove_pattern)(test.loc[:, 'Text'], "@[\w]*")
-	# test['tidy_tweet'] = np.vectorize(remove_pattern)(test.loc[:, 'Text'], "http[\w]*")
+	test['tidy_tweet'] = np.vectorize(remove_pattern)(test.loc[:, 'Text'], "http[\w]*")
 
 	# remove special characters, numbers, punctuations
 	test['tidy_tweet'] = test['tidy_tweet'].str.replace("[^a-zA-Z#]", " ")
