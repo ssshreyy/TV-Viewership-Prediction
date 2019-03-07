@@ -1,6 +1,8 @@
 import re
 import pandas as pd
 import warnings
+from nltk.stem.porter import *
+
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 # f = open("train-data.csv", "w")
@@ -33,5 +35,9 @@ train['tidy_tweet'] = train['tidy_tweet'].apply(lambda x: ' '.join([w for w in x
 
 tokenized_tweets = train['tidy_tweet'].apply(lambda x : x.split())
 
+stemmer = PorterStemmer()
+
+tokenized_tweets = tokenized_tweets.apply(lambda x: [stemmer.stem(i) for i in x])
+print(tokenized_tweets.head())
 # train['tidy_tweet'] = np.vectorize(remove_pattern)(train['tweet'], '@[\w]*')
 
