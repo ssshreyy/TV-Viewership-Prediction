@@ -2,6 +2,7 @@
 import sys, getopt, datetime, codecs, json
 from googletrans import Translator
 from nltk.sentiment import vader
+import ML_Sentiment
 
 if sys.version_info[0] < 3:
     import got
@@ -18,7 +19,7 @@ def main(argv):
         "username=", "near=", "within=", "since=", "until=", "querysearch=", "toptweets", "maxtweets=", "output="))
 
         tweetCriteria = got.manager.TweetCriteria()
-        outputFileName = "tweet.csv"
+        outputFileName = "tweet-data.csv"
 
         for opt, arg in opts:
             if opt == '--username':
@@ -72,7 +73,8 @@ def main(argv):
         print('Arguments parser error, try -h ' + arg)
     finally:
         outputFile.close()
-        print('Done. Output file generated "%s".' % outputFileName)
+        print('Tweet Extraction Complete. Output file generated "%s".' % outputFileName)
+        ML_Sentiment.main()
 
 if __name__ == '__main__':
     main(sys.argv[1:])
