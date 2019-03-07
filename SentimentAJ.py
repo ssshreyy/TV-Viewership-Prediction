@@ -24,11 +24,14 @@ test = pd.read_csv('test-data.csv')
 
 #combi = train.append(test, ignore_index=True)
 train['tidy_tweet'] = [remove_pattern(x,'@') for x in train['tweet']]
-print(train['tidy_tweet'].head(10))
+
 train['tidy_tweet'] = train['tidy_tweet'].str.replace("[^a-zA-Z#]", " ")
+
 train['tidy_tweet'] = [remove_pattern(x,'#') for x in train['tidy_tweet']]
-print(train['tidy_tweet'].head(10))
+
 train['tidy_tweet'] = train['tidy_tweet'].apply(lambda x: ' '.join([w for w in x.split() if len(w)>2]))
 
+tokenized_tweets = train['tidy_tweet'].apply(lambda x : x.split())
+
 # train['tidy_tweet'] = np.vectorize(remove_pattern)(train['tweet'], '@[\w]*')
-print(train['tidy_tweet'].head(10))
+
