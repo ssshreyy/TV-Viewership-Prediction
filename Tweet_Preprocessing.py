@@ -11,9 +11,7 @@ def remove_http(txt):
     txt = str(txt)
     lst = list()
     for x in txt.split():
-        if x.startswith('http'):
-            pass
-        else:
+        if not x.startswith('http'):
             lst.append(x)
     return " ".join(lst)
 
@@ -29,23 +27,23 @@ def preprocess(fileName,columnName,encode):
     print("File Read Successful...")
 
     # Remove @handle
-    train['tidy_tweet'] = [remove_pattern(x,'@') for x in train[columnName]]
+    train['Tidy_Tweet'] = [remove_pattern(x,'@') for x in train[columnName]]
     print("Removed @handle...")
 
     #Remove URLs
-    train['tidy_tweet'] = [remove_http(x) for x in train['tidy_tweet']]
+    train['Tidy_Tweet'] = [remove_http(x) for x in train['Tidy_Tweet']]
     print("Removed URLs...")
 
     # Remove special characters, numbers, punctuations
-    train['tidy_tweet'] = train['tidy_tweet'].str.replace("[^a-zA-Z#]", " ")
+    train['Tidy_Tweet'] = train['Tidy_Tweet'].str.replace("[^a-zA-Z#]", " ")
     print("Removed special characters, numbers, punctuations...")
 
     # Remove Short Words
-    train['tidy_tweet'] = train['tidy_tweet'].apply(lambda x: ' '.join([w for w in x.split() if len(w)>2]))
+    train['Tidy_Tweet'] = train['Tidy_Tweet'].apply(lambda x: ' '.join([w for w in x.split() if len(w)>2]))
     print("Removed short words...")
 
     # Tokenization
-    tokenized_tweet_train = train['tidy_tweet'].apply(lambda x : x.split())
+    tokenized_tweet_train = train['Tidy_Tweet'].apply(lambda x : x.split())
     print("Tokenization done...")
 
     # Stemming
@@ -61,7 +59,7 @@ def preprocess(fileName,columnName,encode):
     for i in range(len(tokenized_tweet_train)):
         tokenized_tweet_train[i] = ' '.join(tokenized_tweet_train[i])
 
-    train['tidy_tweet'] = tokenized_tweet_train
+    train['Tidy_Tweet'] = tokenized_tweet_train
 
     train.to_csv('tweet-preprocessed.csv', index=False)
     print("Output file generated...")
