@@ -53,9 +53,13 @@ def word_vector(tokens, size):
         vec /= count
     return vec
 
-def remove_http(txt,pattern):
-
-    return " ".join(filter(lambda x: x.startswith(pattern) != '', txt.split()))
+def remove_http(txt):
+    txt = str(txt)
+    lst = list()
+    for x in txt.split():
+        if not x.startswith('http'):
+            lst.append(x)
+    return " ".join(lst)
 
 
 def remove_pattern(txt,pattern):
@@ -84,8 +88,10 @@ print("Removed @handle...")
 
 
 #Remove URLs
-train['tidy_tweet'] = np.vectorize(remove_http)(train['tidy_tweet'], "http")
-test['tidy_tweet'] = np.vectorize(remove_http)(test['tidy_tweet'], "http")
+train['tidy_tweet'] = [remove_http(x) for x in train['tweet']]
+test['tidy_tweet'] = [remove_http(x) for x in test['tweet']]
+# train['tidy_tweet'] = np.vectorize(remove_http)(train['tidy_tweet'], "http")
+# test['tidy_tweet'] = np.vectorize(remove_http)(test['tidy_tweet'], "http")
 print("Removed URLs...")
 
 # Remove special characters, numbers, punctuations
@@ -153,14 +159,14 @@ plt.axis('off')
 plt.show()
 
 # Wordcloud of words in racist/sexist tweet
-negative_words = ' '.join([text for text in train['tidy_tweet'][train['polarity'] == '2']])
-wordcloud = WordCloud(width=800, height=500,random_state=21, max_font_size=110).generate(negative_words)
-print("Wordcloud of words in racist/sexist tweet")
-
-plt.figure(figsize=(10, 7))
-plt.imshow(wordcloud, interpolation="bilinear")
-plt.axis('off')
-plt.show()
+# negative_words = ' '.join([text for text in train['tidy_tweet'][train['polarity'] == '2']])
+# wordcloud = WordCloud(width=800, height=500,random_state=21, max_font_size=110).generate(negative_words)
+# print("Wordcloud of words in racist/sexist tweet")
+#
+# plt.figure(figsize=(10, 7))
+# plt.imshow(wordcloud, interpolation="bilinear")
+# plt.axis('off')
+# plt.show()
 
 # Extracting hashtags from non racist/sexist tweets
 print("Extracting hashtags from non racist/sexist tweets")
