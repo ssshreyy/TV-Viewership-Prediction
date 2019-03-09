@@ -140,23 +140,24 @@ print("Output files generated...")
 
 
 # Wordcloud of most frequent words in train data
-all_words = ' '.join([text for text in train['tidy_tweet']])
-wordcloud = WordCloud(width=800, height=500, random_state=21, max_font_size=110).generate(all_words)
-
-print("Wordcloud of most frequent words")
-plt.figure(figsize=(10, 7))
-plt.imshow(wordcloud, interpolation="bilinear")
-plt.axis('off')
-plt.show()
+# all_words = ' '.join([text for text in train['tidy_tweet']])
+# wordcloud = WordCloud(width=800, height=500, random_state=21, max_font_size=110).generate(all_words)
+#
+# print("Wordcloud of most frequent words")
+# plt.figure(figsize=(10, 7))
+# plt.imshow(wordcloud, interpolation="bilinear")
+# plt.axis('off')
+# plt.show()
 # Wordcloud of words in non racist/sexist tweet
-normal_words =' '.join([text for text in train['tidy_tweet'][train['polarity'] == '0']])
-wordcloud = WordCloud(width=800, height=500, random_state=21, max_font_size=110).generate(normal_words)
-print("Wordcloud of words in non racist/sexist tweet")
 
-plt.figure(figsize=(10, 7))
-plt.imshow(wordcloud, interpolation="bilinear")
-plt.axis('off')
-plt.show()
+# normal_words =' '.join([text for text in train['tidy_tweet'][train['polarity'] == '0']])
+# wordcloud = WordCloud(width=800, height=500, random_state=21, max_font_size=110).generate(normal_words)
+# print("Wordcloud of words in non racist/sexist tweet")
+#
+# plt.figure(figsize=(10, 7))
+# plt.imshow(wordcloud, interpolation="bilinear")
+# plt.axis('off')
+# plt.show()
 
 # Wordcloud of words in racist/sexist tweet
 # negative_words = ' '.join([text for text in train['tidy_tweet'][train['polarity'] == '2']])
@@ -181,25 +182,25 @@ HT_regular = sum(HT_regular,[])
 HT_negative = sum(HT_negative,[])
 
 
-a = nltk.FreqDist(HT_regular)
-d = pd.DataFrame({'Hashtag': list(a.keys()),
-                  'Count': list(a.values())})
+# a = nltk.FreqDist(HT_regular)
+# d = pd.DataFrame({'Hashtag': list(a.keys()),
+#                   'Count': list(a.values())})
+#
+# # selecting top 20 most frequent hashtags
+# d = d.nlargest(columns="Count", n=20)
+# plt.figure(figsize=(16, 5))
+# ax = sns.barplot(data=d, x="Hashtag", y="Count")
+# ax.set(ylabel='Count')
+# plt.show()
+#
+# b = nltk.FreqDist(HT_negative)
+# e = pd.DataFrame({'Hashtag': list(b.keys()), 'Count': list(b.values())})
 
-# selecting top 20 most frequent hashtags
-d = d.nlargest(columns="Count", n=20)
-plt.figure(figsize=(16, 5))
-ax = sns.barplot(data=d, x="Hashtag", y="Count")
-ax.set(ylabel='Count')
-plt.show()
-
-b = nltk.FreqDist(HT_negative)
-e = pd.DataFrame({'Hashtag': list(b.keys()), 'Count': list(b.values())})
-
-# selecting top 20 most frequent hashtags
-e = e.nlargest(columns="Count", n=20)
-plt.figure(figsize=(16, 5))
-ax = sns.barplot(data=e, x="Hashtag", y="Count")
-plt.show()
+# # selecting top 20 most frequent hashtags
+# e = e.nlargest(columns="Count", n=20)
+# plt.figure(figsize=(16, 5))
+# ax = sns.barplot(data=e, x="Hashtag", y="Count")
+# plt.show()
 
 bow_vectorizer = CountVectorizer(max_df=0.90, min_df=2, max_features=1000, stop_words='english')
 bow = bow_vectorizer.fit_transform(train['tidy_tweet'])

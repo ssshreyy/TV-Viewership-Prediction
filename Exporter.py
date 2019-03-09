@@ -74,7 +74,7 @@ def main(argv):
     finally:
         outputFile.close()
         print('Tweet Extraction Complete. Output file generated "%s".' % outputFileName)
-        ML_Sentiment.main()
+        ML_Sentiment.main(outputFileName)
 
 if __name__ == '__main__':
     main(sys.argv[1:])
