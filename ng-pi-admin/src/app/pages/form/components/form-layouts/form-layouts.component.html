@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="col-md-10">
+    <card cardTitle="Search Tweets">
+      <form #tweetForm = "ngForm" method="POST" class="form-group" (ngSubmit)="searchTweet(tweetForm.value)">
+        <label class="control-label">Username</label>
+        <input type="text" name="username" class="form-control" placeholder="Search by Username" ngModel>
+        
+        <label class="control-label">Query</label>
+        <input type="text" name="query" class="form-control" placeholder="Search by Keywords" ngModel>
+        
+        <label class="control-label">Since</label>
+        <input type="date" name="since" class="form-control" placeholder="Date Lowerbound" ngModel>
+        
+        <label class="control-label">Until</label>
+        <input type="date" name="until" class="form-control" placeholder="Date Upperbound" ngModel>
+        
+        <label class="control-label">Maximum Number of Tweets</label>
+        <input type= "number" name="maxNo" class="form-control" placeholder="No limit" ngModel>
+        
+        <label class="control-label"></label>
+        <input class="checkbox checkbox-info" type="checkbox" id="color-checkbox6" checked>
+          <label class="check-label" for="color-checkbox6">Search for only Top Tweets</label>
+        
+          <button type="submit" value="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </card>
+  </div>
+
+<!-- <div class="col-md-12">
+    <card cardTitle="Inline Form">
+      <form class="form-inline">
+        <label for="example1" class="form-label">Name:</label>
+        <input type="text" class="form-control" id="example1" placeholder="Jane Doe">
+        <label for="example2" class="form-label">Email:</label>
+        <input type="email" class="form-control" id="example2" placeholder="jane.doe@example.com">
+        <button type="submit" class="btn btn-primary">Send Invitation</button>
+      </form>
+    </card>
+  </div> -->
+  <!-- <div class="col-md-12">
+    <card cardTitle="Basic Form">
+      <form class="form-group">
+        <label class="control-label">Name</label>
+        <input type="text" class="form-control" placeholder="Name">
+        <label class="control-label">Surname</label>
+        <input type="text" class="form-control" placeholder="Surname">
+        <label class="control-label">Password</label>
+        <input type="password" class="form-control" placeholder="Password">
+        <label class="control-label">Description</label>
+        <textarea class="form-control" placeholder="Description"></textarea>
+        <input class="checkbox" type="checkbox" id="remember" checked>
+        <label class="check-label" for="remember">Remember Me</label>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </card>
+  </div> -->
+
+</div>
