@@ -11,7 +11,9 @@ def remove_http(txt):
     txt = str(txt)
     lst = list()
     for x in txt.split():
-        if not x.startswith('http'):
+        if x.startswith('http'):
+            pass
+        else:
             lst.append(x)
     return " ".join(lst)
 
@@ -23,7 +25,7 @@ def remove_pattern(txt,pattern):
 
 def preprocess(fileName,columnName,encode):
 
-    train = pd.read_csv(fileName, encoding=encode, index_col=False, low_memory=False, usecols=range(13))
+    train = pd.read_csv(fileName, encoding=encode, index_col=False, low_memory=False, usecols=range(12))
     print("File Read Successful...")
 
     # Remove @handle

@@ -40,7 +40,7 @@ def viewers_change(str_views):
 def main(fileName):
 
     viewer_data = pd.read_csv('simpsons_episodes.csv', index_col=False, usecols=range(13))
-    tweet_data = pd.read_csv(fileName, index_col=False, usecols=range(15), low_memory = False)
+    tweet_data = pd.read_csv(fileName, index_col=False, usecols=range(14), low_memory = False)
     print(tweet_data['Text'])
 
     print('1')

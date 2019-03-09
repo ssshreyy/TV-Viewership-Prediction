@@ -12,7 +12,7 @@ def calculate_sentiment(text):
 
 def main(fileName):
     preprocessedFileName = Tweet_Preprocessing.preprocess(fileName,'Text','utf-8')
-    data = pd.read_csv(preprocessedFileName, low_memory=False, index_col=False, usecols=range(14))
+    data = pd.read_csv(preprocessedFileName, low_memory=False, index_col=False, usecols=range(13))
     score = []
     count = 1
     for i in data['tidy_tweet']:
