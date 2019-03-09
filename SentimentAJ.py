@@ -173,7 +173,7 @@ print("Extracting hashtags from non racist/sexist tweets")
 HT_regular = hashtag_extract(train['tidy_tweet'][train['polarity'] == '0'])
 
 # Extracting hashtags from racist/sexist tweets
-print("Extracting hashtags from non racist/sexist tweets")
+print("Extracting hashtags from racist/sexist tweets")
 HT_negative = hashtag_extract(train['tidy_tweet'][train['polarity'] == '2'])
 
 # Unnesting list
