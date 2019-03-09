@@ -37,10 +37,10 @@ def viewers_change(str_views):
 #     return str(int(float(str_views.strip().split('[')[0]) * 1000000))
 
 
-def main():
+def main(fileName):
 
     viewer_data = pd.read_csv('simpsons_episodes.csv', index_col=False, usecols=range(13))
-    tweet_data = pd.read_csv('tweet-sentiment.csv', index_col=False, usecols=range(13), low_memory = False)
+    tweet_data = pd.read_csv(fileName, index_col=False, usecols=range(14), low_memory = False)
     print(tweet_data['Text'])
 
     print('1')
@@ -120,4 +120,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main('tweet-preprocessed.csv')
