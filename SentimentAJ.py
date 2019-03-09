@@ -273,9 +273,7 @@ test_bow = bow[31962:,:]
 
 # splitting data into training and validation set
 print("splitting data into training and validation set")
-xtrain_bow, xvalid_bow, ytrain, yvalid = train_test_split(train_bow, train['polarity'],
-                                                          random_state=42,
-                                                          test_size=0.3)
+xtrain_bow, xvalid_bow, ytrain, yvalid = train_test_split(train_bow, train['polarity'], random_state=42, test_size=0.3)
 
 train_tfidf = tfidf[:31962,:]
 test_tfidf = tfidf[31962:,:]
