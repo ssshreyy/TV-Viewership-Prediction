@@ -7,6 +7,7 @@ from sklearn.svm import SVC
 from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
+import pickle
 
 def import_tweets(filename, header = None):
     #import data from csv file via pandas library
@@ -21,7 +22,7 @@ def import_tweets(filename, header = None):
 
 def preprocess_tweet(tweet):
 	#Preprocess the text in a single tweet
-	#arguments: tweet = a single tweet in form of string 
+	#arguments: tweet = a single tweet in form of string
 	#convert the tweet to lower case
 
 	str(tweet)
@@ -49,7 +50,7 @@ def feature_extraction(data, method = "tfidf"):
 		return "Incorrect inputs"
 	return features
 
-def train_classifier(features_train,features_test,label_train,label_test,classifier = "svm"):
+def train_classifier(features_train,features_test,label_train,label_test,classifier = "logistic_regression"):
     if classifier == "logistic_regression": # auc (train data): 0.8780618441250002
         model = LogisticRegression(C=1.)
     elif classifier == "naive_bayes": # auc (train data): 0.8767891829687501
@@ -70,10 +71,12 @@ def train_classifier(features_train,features_test,label_train,label_test,classif
     print ("auc (train data):" , roc_auc_score(label_test, probability_to_be_positive))
     #print top 10 scores as a sanity check
     print ("top 10 scores: ", probability_to_be_positive[:10])
+    return model
 
 
 #apply the preprocess function for all the tweets in the dataset
 tweet_dataset = import_tweets("training_1600000_processed_noemoticon.csv")
+
 #tweet_dataset = import_tweets("trainandtest.csv")
 #tweet_dataset = import_tweets("new.csv")
 print("File read")
@@ -95,8 +98,19 @@ print("Extracting features")
 tfv = TfidfVectorizer(sublinear_tf=True,stop_words="english")  # we need to give proper stopwords list for better performance
 features_train=tfv.fit_transform(data_train)
 features_test=tfv.transform(data_test)
+with open('tfidf.pickle','wb') as file:
+    pickle.dump(tfv,file)
 
 #features_train = feature_extraction(data_train, method = "tfidf") #1600000x288571 sparse matrix of type 'numpy.float64
 #features_test = feature_extraction(data_test, method = "tfidf") #1600000x288571 sparse matrix of type 'numpy.float64
 print("Training")
-train_classifier(features_train,features_test, label_train,label_test, "svm")
+model=train_classifier(features_train,features_test, label_train,label_test, "logistic_regression")
+prediction_dataset = pd.read_csv('tweet-2009.csv',usecols=range(12),encoding='Latin-1',index_col=False,low_memory=False)
+prediction_dataset['Text'] = prediction_dataset['Text'].apply(preprocess_tweet)
+x_prediction = np.array(prediction_dataset.Text)
+features_x_prediction=tfv.transform(x_prediction)
+prediction_dataset['sentiment'] = model.predict(features_x_prediction)
+prediction_dataset.to_csv('output_pred.csv', index=False)
+
+
+
