@@ -5,6 +5,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { FileUploadModule } from 'ng2-file-upload';
 import { SelectModule } from 'ng2-select';
 import { FormsModule } from '@angular/forms'
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 /* components */
@@ -20,6 +21,7 @@ import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
     imports: [
+        NgxPaginationModule,
         CommonModule,
         SharedModule,
         FileUploadModule,

@@ -13,6 +13,9 @@ export class FormLayoutsComponent implements OnInit {
   serverData: JSON;
   employeeData: JSON;
   employee:JSON;
+  arrayOfKeys;
+  pageSize = 10;
+  pageNumber = 1;
 
   // constructor(){}
   constructor(private httpClient: HttpClient) {
@@ -34,32 +37,19 @@ export class FormLayoutsComponent implements OnInit {
         'Authorization': 'my-auth-token'
       })
     };
-    var body = "username=" + tweet.username + "&query=" + tweet.query + "&since=" + tweet.since + "&until=" + tweet.until + "&maxNo=" + tweet.maxNo;
+    var body = "username=" + tweet.username + "&query=" + tweet.query + "&since=" + tweet.since + "&until=" + tweet.until + "&maxNo=" + tweet.maxNo +"&top=" + tweet.top;
     this.httpClient.post("http://127.0.0.1:5003/search", body, httpOptions).subscribe((data) => {
       this.serverData = data as JSON;
-      alert(JSON.stringify(data))
-      console.log(data)
+      // alert(JSON.stringify(this.serverData))
+      console.log(this.serverData)
+      // alert(typeof this.serverData)
+      this.arrayOfKeys = Object.keys(this.serverData)
+      // alert(this.arrayOfKeys)
     })
   }
 
-  sayHi() {
-    this.httpClient.get('http://127.0.0.1:5003/').subscribe(data => {
-      this.serverData = data as JSON;
-      console.log(this.serverData);
-    })
-  }
-
-  getAllEmployees() {
-    this.httpClient.get('http://127.0.0.1:5003/employees').subscribe(data => {
-      this.employeeData = data as JSON;
-      console.log(this.employeeData);
-    })
-  }
-  getEmployee() {
-    this.httpClient.get('http://127.0.0.1:5003/employees/1').subscribe(data => {
-      this.employee = data as JSON;
-      console.log(this.employee);
-    })
+  pageChanged(pN: number): void {
+    this.pageNumber = pN;
   }
 
 }

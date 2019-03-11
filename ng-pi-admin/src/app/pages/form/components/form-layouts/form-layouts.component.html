@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-10">
     <card cardTitle="Search Tweets">
-      <form #tweetForm = "ngForm" method="POST" class="form-group" (ngSubmit)="searchTweet(tweetForm.value)">
+      <form #tweetForm = "ngForm" name="tweetSearchForm" method="POST" class="form-group" (ngSubmit)="searchTweet(tweetForm.value)">
         <label class="control-label">Username</label>
         <input type="text" name="username" class="form-control" placeholder="Search by Username" ngModel>
         
@@ -18,14 +18,149 @@
         <input type= "number" name="maxNo" class="form-control" placeholder="No limit" ngModel>
         
         <label class="control-label"></label>
-        <input class="checkbox checkbox-info" type="checkbox" id="color-checkbox6" checked>
-          <label class="check-label" for="color-checkbox6">Search for only Top Tweets</label>
+        <input class="checkbox checkbox-info" name="top" type="checkbox" id="color-checkbox6" checked ngModel>
+          <label id="top yes" name="topYes" class="check-label" for="color-checkbox6" ng-true-value="someValue" ngModel>Search for only Top Tweets</label>
         
-          <button type="submit" value="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" value="submit" class="btn btn-info">Submit</button>
       </form>
     </card>
   </div>
 
+  <div class="row">
+    <div class="col-md-10">
+      <card cardTitle="Search Results">
+        <!-- <table class="col-md-10">
+          <tr>
+            <th>Username</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Retweets</th>
+            <th>Favorites</th>
+            <th>Text</th>
+          </tr>
+          <tr *ngFor="let key of arrayOfKeys">
+            <td>
+              {{serverData[key].Username}}
+            </td>
+            <td>
+              {{serverData[key].Date}}
+            </td>
+            <td>
+              {{serverData[key].Time}}
+            </td>
+            <td>
+              {{serverData[key].Retweets}}
+            </td>
+            <td>
+              {{serverData[key].Favorites}}
+            </td>
+            <td>
+              {{serverData[key].Text}}
+            </td>
+          </tr>
+        </table> -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <form class="pagination-wrapper">
+                <div class="form-group pages">
+                  <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)" maxSize="9"
+                    directionLinks="true" autoHide="true" previousLabel="Prev" nextLabel="Next"
+                    screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+                  </pagination-controls>
+                </div>
+                <div class="form-group options pages">
+                  <div class="input-group input-group-sm">
+                    <select class="form-control" name="pageChangedName" [(ngModel)]="pageSize" (ngModelChange)="loadData()">
+                      <option>1</option>
+                      <option>5</option>
+                      <option>10</option>
+                      <option>20</option>
+                      <option>50</option>
+                      <option>100</option>
+                      <option>200</option>
+                    </select>
+                    <span class="input-group-addon addon-right">Per Page</span>
+                  </div>
+                </div>
+              </form>
+              <card cardTitle="Data Table">
+                <table class="table table-bordered table-hover">
+                  <thead>
+                    <tr>
+                      <th>Username</th>
+                      <th>Date</th>
+                      <th>Time</th>
+                      <th>Retweets</th>
+                      <th>Favorites</th>
+                      <th>Text</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let key of arrayOfKeys | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
+                      <td>{{serverData[key].Username}}</td>
+                      <td>{{serverData[key].Date}}</td>
+                      <td>{{serverData[key].Time}}</td>
+                      <td>{{serverData[key].Retweets}}</td>
+                      <td>{{serverData[key].Favorites}}</td>
+                      <td>{{serverData[key].Text}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <form class="pagination-wrapper">
+                  <div class="form-group pages">
+                    <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)" maxSize="9"
+                      directionLinks="true" autoHide="true" previousLabel="Prev" nextLabel="Next"
+                      screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+                    </pagination-controls>
+                  </div>
+                  <div class="form-group options pages">
+                    <div class="input-group input-group-sm">
+                      <select class="form-control" name="pageChangedName" [(ngModel)]="pageSize" (ngModelChange)="loadData()">
+                        <option>1</option>
+                        <option>5</option>
+                        <option>10</option>
+                        <option>20</option>
+                        <option>50</option>
+                        <option>100</option>
+                        <option>200</option>
+                      </select>
+                      <span class="input-group-addon addon-right">Per Page</span>
+                    </div>
+                  </div>
+                </form>
+
+
+                <!-- <form class="pagination-wrapper">
+                  <div class="form-group pages">
+                    <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)" maxSize="9" directionLinks="true"
+                      autoHide="true" previousLabel="Prev" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+                      screenReaderCurrentLabel="You're on page">
+                    </pagination-controls>
+                  </div>
+                  <div class="form-group options pages">
+                    <div class="input-group input-group-sm">
+                      <select class="form-control" name="pageChangedName" [(ngModel)]="pageSize" (ngModelChange)="loadData()">
+                        <option>1</option>
+                        <option>5</option>
+                        <option>10</option>
+                        <option>20</option>
+                        <option>50</option>
+                        <option>100</option>
+                        <option>200</option>
+                      </select>
+                      <span class="input-group-addon addon-right">Per Page</span>
+                    </div>
+                  </div>
+                </form> -->
+              </card>
+            </div>
+          </div>
+          
+
+      </card>
+    </div>
+  </div>
 <!-- <div class="col-md-12">
     <card cardTitle="Inline Form">
       <form class="form-inline">

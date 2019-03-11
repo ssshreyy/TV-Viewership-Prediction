@@ -59,7 +59,6 @@ def main(argv):
 
 
         def receiveBuffer(tweetss):
-
             for t in tweetss:
                 #s = translator.translate(t.text)
                 outputFile.write(('\n%s,%s,%s,%s,%s,%d,%d,"""%s""",%s,%s,%s,%s' % (t.id, t.username, t.author_id, t.date.strftime("%Y-%m-%d"), t.date.strftime("%H:%M"), t.retweets, t.favorites, t.text, t.mentions, t.hashtags, t.permalink, t.urls)))
@@ -74,7 +73,7 @@ def main(argv):
     finally:
         outputFile.close()
         print('Tweet Extraction Complete. Output file generated "%s".' % outputFileName)
-        ML_Sentiment.main(outputFileName)
+        # ML_Sentiment.main(outputFileName)
 
 if __name__ == '__main__':
     main(sys.argv[1:])
