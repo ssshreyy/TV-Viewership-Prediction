@@ -51,7 +51,7 @@ def main(fileName):
     tweet_data['Date'] = list(map(date_change, tweet_data['Date']))
 
     first_date = bisect.bisect_left(viewer_data['Air_Date'], '2010-01-01')
-    last_date = bisect.bisect_left(viewer_data['Air_Date'], '2015-01-01')
+    last_date = bisect.bisect_left(viewer_data['Air_Date'], '2011-01-01')
 
     y = list(map(int,viewer_data['US_Viewers_In_Millions'][first_date+1:last_date]))
 
@@ -120,4 +120,4 @@ def main(fileName):
 
 
 if __name__ == "__main__":
-    main('tweet-preprocessed.csv')
+    main('output_prediction.csv')
