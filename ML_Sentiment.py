@@ -6,6 +6,8 @@ import Tweet_Preprocessing
 
 def calculate_sentiment(text):
 
+    if type(float) == type(text):
+        return 0
     sia = vader.SentimentIntensityAnalyzer()
     return sia.polarity_scores(text)['compound']
 
