@@ -31,17 +31,17 @@ def main(fileName):
     prediction_dataset.Tidy_Tweet = prediction_dataset.Tidy_Tweet.fillna(value="")
 
     x = np.array(train_dataset.Tidy_Tweet)
-    x_train,_ ,_ ,_ = train_test_split(x, y, test_size=0.2, random_state=42)
-    data_train = x_train
+    x_train,_ = train_test_split(x, test_size=0.2, random_state=42)
+
     tfv = TfidfVectorizer(sublinear_tf=True, stop_words="english")
-    _ = tfv.fit_transform(data_train)
+    _ = tfv.fit_transform(x_train)
 
     print("Training Model...")
     pickle_in = open('logistic.pickle', 'rb')
     model = pickle.load(pickle_in)
 
     x_prediction = np.array(prediction_dataset.Tidy_Tweet)
-    features_x_prediction = tfv.fit_transform(x_prediction)
+    features_x_prediction = tfv.transform(x_prediction)
 
     print("Features Extracted...")
     prediction_dataset['Score'] = model.predict(features_x_prediction)
