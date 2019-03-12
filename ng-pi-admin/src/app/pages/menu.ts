@@ -11,6 +11,11 @@ export let MENU_ITEM = [
         icon: 'search'
     },
     {
+        path: 'visuals',
+        title: 'Visualisation',
+        icon: 'bar-chart'
+    },
+    {
         path: 'form/form-inputs',
         title: 'Form Inputs',
         icon: 'pencil'
