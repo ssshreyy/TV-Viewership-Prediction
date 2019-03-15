@@ -10,7 +10,7 @@ def compute(tweet_data, start, end):
     temp1 = 0
     temp2 = 0
     count = 1
-    for i in range(start,end+1):
+    for i in range(start, end+1):
         temp2 = float(tweet_data['Score'][i]) * 1000
         if temp2 != 0:
             count += 1
@@ -39,8 +39,8 @@ def viewers_change(str_views):
 
 def main(fileName):
 
-    viewer_data = pd.read_csv('simpsons_episodes.csv', index_col=False, usecols=range(13))
-    tweet_data = pd.read_csv(fileName, index_col=False, usecols=range(14), low_memory = False)
+    viewer_data = pd.read_csv('./Prediction_data/simpsons_episodes.csv', index_col=False, usecols=range(13))
+    tweet_data = pd.read_csv(fileName, index_col=False, usecols=range(15), low_memory = False)
     print(tweet_data['Text'])
 
     print('1')
@@ -120,4 +120,4 @@ def main(fileName):
 
 
 if __name__ == "__main__":
-    main('output_prediction.csv')
+    main('./Prediction_data/tweet_2009_predict.csv')
