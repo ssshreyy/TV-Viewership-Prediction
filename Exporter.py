@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-import sys, getopt, codecs
+import sys
+import getopt
+import codecs
 import Tweet_Preprocessing
 
 if sys.version_info[0] < 3:
@@ -52,15 +54,10 @@ def main(argv):
         outputFile.write('ID,Username,Author ID,Date,Time,Retweets,Favorites,Text,Mentions,Hashtags,Permalink,URL')
 
         print('Tweets Extraction Started\n')
-        # sia = vader.SentimentIntensityAnalyzer()
-        #translator = Translator()
-
 
         def receiveBuffer(tweetss):
             for t in tweetss:
-                #s = translator.translate(t.text)
                 outputFile.write(('\n%s,%s,%s,%s,%s,%d,%d,"""%s""",%s,%s,%s,%s' % (t.id, t.username, t.author_id, t.date.strftime("%Y-%m-%d"), t.date.strftime("%H:%M"), t.retweets, t.favorites, t.text, t.mentions, t.hashtags, t.permalink, t.urls)))
-            # outputFile.write('%s' % (sia.polarity_scores(t.text)))
             outputFile.flush()
             print('More %d Saved On File...\n' % len(tweetss))
 
@@ -72,6 +69,7 @@ def main(argv):
         outputFile.close()
         print('Tweet Extraction Complete. Output file generated "%s".' % outputFileName)
         Tweet_Preprocessing.main(outputFileName)
+
 
 if __name__ == '__main__':
     main(sys.argv[1:])
