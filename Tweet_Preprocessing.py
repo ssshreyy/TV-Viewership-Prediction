@@ -1,9 +1,9 @@
-import numpy as np
 import warnings
 import pandas as pd
 from nltk.stem import WordNetLemmatizer
-from gensim.models.doc2vec import LabeledSentence
 from nltk.stem.porter import *
+import ML_Sentiment
+
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 
@@ -21,46 +21,48 @@ def remove_pattern(txt,pattern):
     return " ".join(filter(lambda x: x[0] != pattern, txt.split()))
 
 
-def preprocess(fileName,columnName,encode):
+def main(fileName):
 
-    train = pd.read_csv(fileName, encoding=encode, index_col=False, low_memory=False, usecols=range(12))
-    print("File Read Successful...")
+    print("Tweet Preprocessing Started")
 
-    # Remove @handle
-    train['Tidy_Tweet'] = [remove_pattern(x,'@') for x in train[columnName]]
-    print("Removed @handle...")
+    train = pd.read_csv(fileName, encoding='utf-8', index_col=False, low_memory=False, usecols=range(12))
+    print("File Read Successful")
 
-    #Remove URLs
+    train['Tidy_Tweet'] = [remove_pattern(x,'@') for x in train['Text']]
+    print("Removed @Handle")
+
     train['Tidy_Tweet'] = [remove_http(x) for x in train['Tidy_Tweet']]
-    print("Removed URLs...")
+    print("Removed URLs")
 
-    # Remove special characters, numbers, punctuations
     train['Tidy_Tweet'] = train['Tidy_Tweet'].str.replace("[^a-zA-Z#]", " ")
-    print("Removed special characters, numbers, punctuations...")
+    print("Removed Special Characters, Numbers, Punctuations")
 
-    # Remove Short Words
     train['Tidy_Tweet'] = train['Tidy_Tweet'].apply(lambda x: ' '.join([w for w in x.split() if len(w)>2]))
-    print("Removed short words...")
+    print("Removed Short Words")
 
-    # Tokenization
     tokenized_tweet_train = train['Tidy_Tweet'].apply(lambda x : x.split())
-    print("Tokenization done...")
+    print("Tokenization Done")
 
-    # Stemming
     stemmer = PorterStemmer()
     tokenized_tweet_train = tokenized_tweet_train.apply(lambda x: [stemmer.stem(i) for i in x])
-    print("Stemming done...")
+    print("Stemming Done")
 
-    # Lammatization
     lemmatizer = WordNetLemmatizer()
     tokenized_tweet_train = tokenized_tweet_train.apply(lambda x: [lemmatizer.lemmatize(i) for i in x])
-    print("Lammatization done...")
+    print("Lammatization Done")
 
     for i in range(len(tokenized_tweet_train)):
         tokenized_tweet_train[i] = ' '.join(tokenized_tweet_train[i])
 
     train['Tidy_Tweet'] = tokenized_tweet_train
-    train.to_csv('tweet-preprocessed.csv', index=False)
-    print("Output file generated...")
 
-    return 'tweet-preprocessed.csv'
+    outputFileName = './Preprocessed_data/tweet_preprocessed.csv'
+    train.to_csv(outputFileName, index=False)
+
+    print('Tweet Preprocessing Complete. Output file generated "%s".' % outputFileName )
+
+    ML_Sentiment.main(outputFileName)
+
+
+if __name__ == "__main__" :
+    main( './Tweet_data/tweet_data.csv' )
