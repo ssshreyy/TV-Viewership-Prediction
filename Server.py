@@ -4,7 +4,7 @@ from flask_restful import Resource, Api
 from json import dumps
 from flask_jsonpify import jsonify
 from flask import render_template
-import Exporter
+import LiveTweetSearch
 import pandas as pd
 import os,inspect
 
@@ -57,7 +57,7 @@ def search():
         if top == True:
             tweetSearchParameters.append('--toptweets')
 
-        Exporter.main(tweetSearchParameters)
+        LiveTweetSearch.main(tweetSearchParameters)
 
         data = pd.read_csv('tweet-data.csv', usecols=range(12), index_col=False, low_memory=False)
 
