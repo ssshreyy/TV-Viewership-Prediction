@@ -28,38 +28,6 @@
 
   <div class="row">
     <div class="col-md-10">
-      <card cardTitle="Search Results">
-        <!-- <table class="col-md-10">
-          <tr>
-            <th>Username</th>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Retweets</th>
-            <th>Favorites</th>
-            <th>Text</th>
-          </tr>
-          <tr *ngFor="let key of arrayOfKeys">
-            <td>
-              {{serverData[key].Username}}
-            </td>
-            <td>
-              {{serverData[key].Date}}
-            </td>
-            <td>
-              {{serverData[key].Time}}
-            </td>
-            <td>
-              {{serverData[key].Retweets}}
-            </td>
-            <td>
-              {{serverData[key].Favorites}}
-            </td>
-            <td>
-              {{serverData[key].Text}}
-            </td>
-          </tr>
-        </table> -->
-
         <div class="row">
             <div class="col-md-12">
                 <form class="pagination-wrapper">
@@ -84,7 +52,7 @@
                   </div>
                 </div>
               </form>
-              <card cardTitle="Data Table">
+              <card cardTitle="Search Results">
                 <table class="table table-bordered table-hover">
                   <thead>
                     <tr>
@@ -129,65 +97,9 @@
                     </div>
                   </div>
                 </form>
-
-
-                <!-- <form class="pagination-wrapper">
-                  <div class="form-group pages">
-                    <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)" maxSize="9" directionLinks="true"
-                      autoHide="true" previousLabel="Prev" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
-                      screenReaderCurrentLabel="You're on page">
-                    </pagination-controls>
-                  </div>
-                  <div class="form-group options pages">
-                    <div class="input-group input-group-sm">
-                      <select class="form-control" name="pageChangedName" [(ngModel)]="pageSize" (ngModelChange)="loadData()">
-                        <option>1</option>
-                        <option>5</option>
-                        <option>10</option>
-                        <option>20</option>
-                        <option>50</option>
-                        <option>100</option>
-                        <option>200</option>
-                      </select>
-                      <span class="input-group-addon addon-right">Per Page</span>
-                    </div>
-                  </div>
-                </form> -->
               </card>
             </div>
           </div>
-          
-
-      </card>
     </div>
   </div>
-<!-- <div class="col-md-12">
-    <card cardTitle="Inline Form">
-      <form class="form-inline">
-        <label for="example1" class="form-label">Name:</label>
-        <input type="text" class="form-control" id="example1" placeholder="Jane Doe">
-        <label for="example2" class="form-label">Email:</label>
-        <input type="email" class="form-control" id="example2" placeholder="jane.doe@example.com">
-        <button type="submit" class="btn btn-primary">Send Invitation</button>
-      </form>
-    </card>
-  </div> -->
-  <!-- <div class="col-md-12">
-    <card cardTitle="Basic Form">
-      <form class="form-group">
-        <label class="control-label">Name</label>
-        <input type="text" class="form-control" placeholder="Name">
-        <label class="control-label">Surname</label>
-        <input type="text" class="form-control" placeholder="Surname">
-        <label class="control-label">Password</label>
-        <input type="password" class="form-control" placeholder="Password">
-        <label class="control-label">Description</label>
-        <textarea class="form-control" placeholder="Description"></textarea>
-        <input class="checkbox" type="checkbox" id="remember" checked>
-        <label class="check-label" for="remember">Remember Me</label>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-    </card>
-  </div> -->
-
 </div>

@@ -56,12 +56,12 @@ def main(fileName):
 
     train['Tidy_Tweet'] = tokenized_tweet_train
 
-    outputFileName = './Preprocessed_data/tweet_preprocessed.csv'
+    outputFileName = './Preprocessed_data/tweet_data_preprocessed.csv'
     train.to_csv(outputFileName, index=False)
 
     print('Tweet Preprocessing Complete. Output file generated "%s".' % outputFileName )
 
-    ML_Sentiment.main(outputFileName)
+    # ML_Sentiment.main(outputFileName)
 
 
 if __name__ == "__main__" :

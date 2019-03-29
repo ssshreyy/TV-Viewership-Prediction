@@ -11,8 +11,6 @@ import { HttpHeaders } from '@angular/common/http';
 export class FormLayoutsComponent implements OnInit {
 
   serverData: JSON;
-  employeeData: JSON;
-  employee:JSON;
   arrayOfKeys;
   pageSize = 10;
   pageNumber = 1;
@@ -24,13 +22,9 @@ export class FormLayoutsComponent implements OnInit {
   ngOnInit() {
   }
 
-  // searchTweet() {
-  //   this.httpClient.post('http://127.0.0.1:5003/search', {'message': 123})
-  // }
-
   searchTweet(tweet) {
     console.log(tweet);
-    // alert(tweet.username)
+
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/x-www-form-urlencoded',
@@ -40,11 +34,11 @@ export class FormLayoutsComponent implements OnInit {
     var body = "username=" + tweet.username + "&query=" + tweet.query + "&since=" + tweet.since + "&until=" + tweet.until + "&maxNo=" + tweet.maxNo +"&top=" + tweet.top;
     this.httpClient.post("http://127.0.0.1:5003/search", body, httpOptions).subscribe((data) => {
       this.serverData = data as JSON;
-      // alert(JSON.stringify(this.serverData))
+
       console.log(this.serverData)
-      // alert(typeof this.serverData)
+
       this.arrayOfKeys = Object.keys(this.serverData)
-      // alert(this.arrayOfKeys)
+      
     })
   }
 

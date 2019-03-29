@@ -5,12 +5,16 @@ import { PagesModule } from './pages/pages.module';
 import { routing } from './app.routing';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PreprocessModule } from './pages/preprocess/preprocess.module';
+import { VisualsModule } from './pages/visuals/visuals.module';
 
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    PreprocessModule,
+    VisualsModule,
     PagesModule,
     routing
   ],

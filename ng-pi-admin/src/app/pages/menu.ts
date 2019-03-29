@@ -11,6 +11,11 @@ export let MENU_ITEM = [
         icon: 'search'
     },
     {
+        path: 'preprocess',
+        title: 'Tweet Preprocessing',
+        icon: 'search'
+    },
+    {
         path: 'visuals',
         title: 'Visualisation',
         icon: 'bar-chart'

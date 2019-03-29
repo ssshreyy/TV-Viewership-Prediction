@@ -7,6 +7,7 @@ from flask import render_template
 import LiveTweetSearch
 import pandas as pd
 import os,inspect
+import Tweet_Preprocessing
 
 app = Flask(__name__)
 
@@ -27,6 +28,19 @@ def wordcloud():
 
     else:
         return 0
+
+@app.route("/show", methods = ['POST','GET'])
+def show():
+    if request.method == 'GET':
+        data = pd.read_csv('Tweet_data/tweet_data.csv', usecols=range(12), index_col=False, low_memory=False)
+        return(pd.DataFrame.to_json(data, orient='index'))
+
+@app.route("/preprocess", methods = ['POST','GET'])
+def preprocess():
+    if request.method == 'GET':
+        Tweet_Preprocessing.main('Tweet_data/tweet_data.csv')
+        data = pd.read_csv('Preprocessed_data/tweet_data_preprocessed.csv', usecols=range(13), index_col=False, low_memory=False)
+        return(pd.DataFrame.to_json(data, orient='index'))
 
 
 @app.route("/search", methods = ['POST','GET'])
@@ -59,8 +73,7 @@ def search():
 
         LiveTweetSearch.main(tweetSearchParameters)
 
-        data = pd.read_csv('tweet-data.csv', usecols=range(12), index_col=False, low_memory=False)
-
+        data = pd.read_csv('Tweet_data/tweet_data.csv', usecols=range(12), index_col=False, low_memory=False)
         # return jsonify([{'tweetSearchParameters':data['Text'][1]}])
         return(pd.DataFrame.to_json(data, orient='index'))
 
