@@ -25,7 +25,7 @@ import matplotlib
 
 
 
-def train_classifier(features_train, features_test, label_train, label_test, classifier):
+def train_classifier(features_train, features_test, label_train, label_test, classifier,i):
     if classifier == "Logistic_Regression":
         model = LogisticRegression()
     elif classifier == "Naive_Bayes":
@@ -74,9 +74,10 @@ def train_classifier(features_train, features_test, label_train, label_test, cla
     # with open(fileName, 'wb') as file:
     #     pickle.dump(model, file)
     # print("Pickle File Created %s" % fileName)
+    if i ==1:
+        accuracy = model.score(features_test, label_test)
+        print("Accuracy Is:", accuracy)
 
-    accuracy = model.score(features_test, label_test)
-    print("Accuracy Is:", accuracy)
     return model
 
 def main(simpsons_file):
@@ -90,7 +91,7 @@ def main(simpsons_file):
     y = viewer_data.loc[:, ['US_Viewers_In_Millions']]
     x_temp =x
     y_temp =y
-    scaler = MinMaxScaler( feature_range = (0, 1))
+    scaler = MinMaxScaler( feature_range = (0, 1) )
     x = scaler.fit_transform(x)
     y = scaler.fit_transform(y)
     print('Data Rescaling Complete')
@@ -100,7 +101,7 @@ def main(simpsons_file):
     print('Data Standardization Complete')
 
     x = preprocessing.normalize(x)
-    # y = preprocessing.normalize(y)
+    y = preprocessing.normalize(y)
     # print('Data Normalization Complete')
 
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.2, random_state = 0)
@@ -112,7 +113,7 @@ def main(simpsons_file):
 
     print("Model Training Started")
     algorithm = "Polynomial"
-    model = train_classifier(x_train, x_test, y_train, y_test, algorithm)
+    model = train_classifier(x_train, x_test, y_train, y_test, algorithm,1)
     print("Model Training Complete")
 
     # viewer_data['Predicted_Viewership'] = model.predict(x)
@@ -141,7 +142,7 @@ def main(simpsons_file):
 
     x_train, x_test, y_train, y_test = train_test_split(x, y_temp, test_size = 0.2, random_state = 0)
     algorithm = "Polynomial"
-    model = train_classifier(x_train, x_test, y_train, y_test, algorithm)
+    model = train_classifier(x_train, x_test, y_train, y_test, algorithm,2)
     viewer_data['Predicted_Viewership'] = model.predict(x)
     viewer_data.to_csv('./Prediction_data/predicted_file.csv')
     plt.scatter(viewer_data['Predicted_Viewership'], y_temp, label='skitscat')
