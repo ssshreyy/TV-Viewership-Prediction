@@ -7,11 +7,11 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import GridSearchCV
 from sklearn.linear_model import LinearRegression
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.ensemble import RandomForestRegressor
 # from __future__ import absolute_import
 # from __future__ import division
 # from __future__ import print_function
@@ -25,16 +25,12 @@ import matplotlib
 
 
 
-def train_classifier(features_train, features_test, label_train, label_test, classifier,i):
-    if classifier == "Logistic_Regression":
-        model = LogisticRegression()
-    elif classifier == "Naive_Bayes":
-        model = MultinomialNB()
-    elif classifier == "SVM":
-        model = SVC()
-    elif classifier == "Linear":
+def train_classifier(features_train, features_test, label_train, label_test, c,i):
+    if c == "Linear":
         model = LinearRegression()
-    elif classifier == "Polynomial":
+    elif c == "Random_Forest":
+        model= RandomForestRegressor(n_estimators=50)
+    elif c == "Polynomial":
         poly_features = PolynomialFeatures(degree=1)
         features_train_poly = poly_features.fit_transform(features_train)
         model = LinearRegression()
@@ -59,9 +55,7 @@ def train_classifier(features_train, features_test, label_train, label_test, cla
         # print("The model performance for the test set")
         # print("RMSE of test set is {}".format(rmse_test))
         # print("R2 score of test set is {}".format(r2_test))
-    elif classifier == "Random_Forest":
-        model = RandomForestClassifier(n_estimators=400, random_state=11)
-    elif classifier == "Kmeans":
+    elif c == "Kmeans":
         knn = neighbors.KNeighborsRegressor()
         params = {'n_neighbors': [2, 3, 4, 5, 6, 7, 8, 9]}
         model = GridSearchCV(knn, params, cv=5)
@@ -76,7 +70,7 @@ def train_classifier(features_train, features_test, label_train, label_test, cla
     # print("Pickle File Created %s" % fileName)
     if i ==1:
         accuracy = model.score(features_test, label_test)
-        print("Accuracy Is:", accuracy)
+        # print("Accuracy Is:", accuracy)
 
     return model
 
@@ -100,9 +94,9 @@ def main(simpsons_file):
     y = preprocessing.scale(y)
     print('Data Standardization Complete')
 
-    x = preprocessing.normalize(x)
-    y = preprocessing.normalize(y)
-    # print('Data Normalization Complete')
+    # x = preprocessing.normalize(x)
+    # y = preprocessing.normalize(y)
+    # # print('Data Normalization Complete')
 
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.2, random_state = 0)
     print("Shape of x_train: ", x_train.shape)
@@ -112,7 +106,7 @@ def main(simpsons_file):
     print('Data Sliced In Training And Testing Sets')
 
     print("Model Training Started")
-    algorithm = "Polynomial"
+    algorithm = "Random_Forest"
     model = train_classifier(x_train, x_test, y_train, y_test, algorithm,1)
     print("Model Training Complete")
 
@@ -126,10 +120,8 @@ def main(simpsons_file):
     x = scaler.fit_transform(x_temp)
     x = preprocessing.scale(x)
     x = preprocessing.normalize(x)
-
     x_train, x_test, y_train, y_test = train_test_split(x, y_temp, test_size = 0.2, random_state = 0)
-    algorithm = "Polynomial"
-    model = train_classifier(x_train, x_test, y_train, y_test, algorithm,2)
+    model = train_classifier(x_train, x_test, y_train, y_test, "Random_Forest",1)
     viewer_data['Predicted_Viewership'] = model.predict(x)
     viewer_data.to_csv('./Prediction_data/predicted_file.csv')
     plt.scatter(viewer_data['Predicted_Viewership'], y_temp, label='skitscat')
