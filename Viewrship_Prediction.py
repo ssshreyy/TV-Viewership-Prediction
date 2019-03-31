@@ -35,7 +35,7 @@ def train_classifier(features_train, features_test, label_train, label_test, cla
     elif classifier == "Linear":
         model = LinearRegression()
     elif classifier == "Polynomial":
-        poly_features = PolynomialFeatures(degree=5)
+        poly_features = PolynomialFeatures(degree=1)
         features_train_poly = poly_features.fit_transform(features_train)
         model = LinearRegression()
         model.fit(features_train_poly, label_train)
@@ -95,7 +95,6 @@ def main(simpsons_file):
 
     x = viewer_data.loc[:, ['Views', 'IMDB_Rating', 'IMDB_Votes', 'Retweets', 'Favorites', 'Vader_Score', 'Sentiment_Score', 'Tweets_Per_Day', 'Unique_Users']]
     y = viewer_data.loc[:, ['US_Viewers_In_Millions']]
-    # print(y)
     x_temp =x
     y_temp =y
     scaler = MinMaxScaler( feature_range = (0, 1))
@@ -134,15 +133,13 @@ def main(simpsons_file):
         for item in sublist:
             flat_list.append(item)
 
-    # print(flat_list)
-
-    plt.scatter(model.predict(x), flat_list, label='skitscat', color='k', s=25, marker="o")
-    plt.xlabel('Prediction')
-    plt.ylabel('Reality')
-    plt.title('Prediction vs Reality')
-    plt.legend()
-    plt.show()
-    print("Done")
+    # plt.scatter(model.predict(x), flat_list, label='skitscat', color='k', s=25, marker="o")
+    # plt.xlabel('Prediction')
+    # plt.ylabel('Reality')
+    # plt.title('Prediction vs Reality')
+    # plt.legend()
+    # plt.show()
+    # print("Done")
 
     scaler = MinMaxScaler( feature_range = (0, 1))
     x = scaler.fit_transform(x_temp)
@@ -154,6 +151,13 @@ def main(simpsons_file):
     model = train_classifier(x_train, x_test, y_train, y_test, algorithm)
     viewer_data['Predicted_Viewership'] = model.predict(x)
     viewer_data.to_csv('./Prediction_data/predicted_file.csv')
+    plt.scatter(viewer_data['Predicted_Viewership'], y_temp, label='skitscat')
+    plt.xlabel('Predicted Viewership')
+    plt.ylabel('Actual Viewership')
+    plt.title('Prediction vs Reality')
+    plt.legend()
+    plt.show()
+    print("Done")
 
 
 if __name__ == '__main__':
