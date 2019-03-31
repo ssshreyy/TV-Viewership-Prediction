@@ -31,7 +31,8 @@ def main(fileName):
     train['Tidy_Tweet'] = [remove_pattern(x,'@') for x in train['Text']]
     print("Removed @Handle")
 
-    train['Tidy_Tweet'] = [remove_http(x) for x in train['Tidy_Tweet']]
+    # train['Tidy_Tweet'] = [remove_http(x) for x in train['Tidy_Tweet']]
+    train['Tidy_Tweet'] = [re.sub( '((www\.[^\s]+)|(https?://[^\s]+))' , ' ' , tweet ) for tweet in train['Tidy_Tweet']]
     print("Removed URLs")
 
     train['Tidy_Tweet'] = train['Tidy_Tweet'].str.replace("[^a-zA-Z#]", " ")
@@ -56,12 +57,12 @@ def main(fileName):
 
     train['Tidy_Tweet'] = tokenized_tweet_train
 
-    outputFileName = './Preprocessed_data/tweet_preprocessed.csv'
+    outputFileName = './Preprocessed_data/tweet_data_preprocessed.csv'
     train.to_csv(outputFileName, index=False)
 
     print('Tweet Preprocessing Complete. Output file generated "%s".' % outputFileName )
 
-    ML_Sentiment.main(outputFileName)
+    # ML_Sentiment.main(outputFileName)
 
 
 if __name__ == "__main__" :

@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { routing } from './visuals.routing';
+import { routing } from './preprocess.routing';
 import { SharedModule } from '../../shared/shared.module';
-import { VisualsComponent } from './visuals.component';
+import { PreprocessComponent } from './preprocess.component';
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from '@angular/forms'
-import { NgxEchartsModule } from 'ngx-echarts';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
     imports: [
-        NgxEchartsModule,
+        NgxPaginationModule,
         CommonModule,
         SharedModule,
         routing,
@@ -17,7 +17,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
         FormsModule
     ],
     declarations: [
-        VisualsComponent
+        PreprocessComponent
     ]
 })
-export class VisualsModule { }
+export class PreprocessModule { }
