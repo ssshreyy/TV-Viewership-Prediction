@@ -17,6 +17,62 @@ export class VisualsService {
     PieOption;
     LineOption;
     AnimationBarOption;
+    ScatterOption;
+
+
+    getGradientOption(x,y) {
+        return {
+            visualMap: [{
+                show: false,
+                type: 'continuous',
+                seriesIndex: 0,
+                min: 8,
+                max: 4
+            }],
+        
+            tooltip: {
+                trigger: 'axis'
+            },
+            xAxis: [{
+                data: x
+            }, {
+                data: x,
+                gridIndex: 1
+            }],
+            yAxis: [{
+                splitLine: {show: false}
+            }, {
+                splitLine: {show: false},
+                gridIndex: 1
+            }],
+            grid: [{
+                bottom: '15%'
+            }, {
+                top: '30%'
+            }],
+            series: [{
+                type: 'line',
+                showSymbol: false,
+                data: y
+            }]
+        };
+    }
+
+    getScatterOption(scatterData) {
+        this.ScatterOption = {
+            type: 'value',
+            xAxis: {},
+            yAxis: {},
+            series: [{
+                symbolSize: 7,
+                data: scatterData,
+                type: 'scatter'
+            }],
+            color: ['blue']
+        };
+
+        return this.ScatterOption;
+    }
 
     getBarOption() {
         this.BarOption = {
@@ -32,10 +88,19 @@ export class VisualsService {
                 bottom: '3%',
                 containLabel: true
             },
+            dataset: {
+                source: [
+                    ['product', '2015', '2016', '2017'],
+                    ['Matcha Latte', 43.3, 85.8, 93.7],
+                    ['Milk Tea', 83.1, 73.4, 55.1],
+                    ['Cheese Cocoa', 86.4, 65.2, 82.5],
+                    ['Walnut Brownie', 72.4, 53.9, 39.1]
+                ]
+            },
             xAxis: [
                 {
                     type: 'category',
-                    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    // data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
                     axisTick: {
                         alignWithLabel: true
                     }
@@ -43,32 +108,34 @@ export class VisualsService {
             ],
             yAxis: [
                 {
-                    type: 'value'
+                    // type: 'value'
                 }
             ],
             series: [
                 {
-                    name: '直接访问',
+                    // name: '直接访问',
                     type: 'bar',
-                    barWidth: '60%',
-                    data: [10, 52, 200, 334, 390, 330, 220]
-                }
+                    // barWidth: '60%',
+                    // data: [10, 52, 200, 334, 390, 330, 220]
+                },
+                { type: 'bar' },
+                { type: 'bar' }
             ]
         };
 
         return this.BarOption;
     }
-    getLineOption() {
+    getLineOption(xLineData, yLineData) {
         this.LineOption = {
             xAxis: {
                 type: 'category',
-                data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                data: xLineData
             },
             yAxis: {
                 type: 'value'
             },
             series: [{
-                data: [820, 932, 901, 934, 1290, 1330, 1320],
+                data: yLineData,
                 type: 'line',
                 smooth: true
             }]
@@ -103,10 +170,10 @@ export class VisualsService {
         return this.PieOption;
     }
 
-    getAnimationBarOption() {
+    getAnimationBarOption(xAxisData,data1,data2) {
         this.AnimationBarOption = {
             legend: {
-                data: ['Example data1', 'Example data2'],
+                data: ['Actual Viewership', 'Predicted Viewership'],
                 align: 'left'
             },
             /* toolbox: {
@@ -123,25 +190,25 @@ export class VisualsService {
             }, */
             tooltip: {},
             xAxis: {
-                data: this.xAxisData,
+                data: xAxisData,
                 silent: false,
                 splitLine: {
-                    show: false
+                    show: true
                 }
             },
             yAxis: {
             },
             series: [{
-                name: 'Example data1',
+                name: 'Actual',
                 type: 'bar',
-                data: this.data1,
+                data: data1,
                 animationDelay: function (idx) {
                     return idx * 10;
                 }
             }, {
-                name: 'Example data2',
+                name: 'Predicted',
                 type: 'bar',
-                data: this.data2,
+                data: data2,
                 animationDelay: function (idx) {
                     return idx * 10 + 100;
                 }
@@ -149,7 +216,8 @@ export class VisualsService {
             animationEasing: 'elasticOut',
             animationDelayUpdate: function (idx) {
                 return idx * 5;
-            }
+            },
+            color: ['red','yellow']
         };
 
         return this.AnimationBarOption;

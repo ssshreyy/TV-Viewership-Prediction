@@ -42,7 +42,12 @@ export class SentimentComponent implements OnInit {
     this.httpClient.get("http://127.0.0.1:5003/sentiment").subscribe((data2) => {
       this.analysedData = data2 as JSON;
       this.arrayOfKeys.forEach(element => {
-        
+        if(this.analysedData[element].Sentiment_Score==0){
+          this.analysedData[element].Sentiment_Score = -1;
+        }
+        else{
+          this.analysedData[element].Sentiment_Score = 1;
+        }
       });
       this.pre=true;
       console.log(this.analysedData)

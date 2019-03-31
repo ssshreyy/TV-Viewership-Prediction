@@ -13,22 +13,81 @@ export class VisualsComponent implements OnInit {
   showloading: boolean = false;
   BarOption;
   LineOption;
+  GradientOption;
   PieOption;
+  ScatterOption;
   AnimationBarOption;
   serverData: JSON;
   arrayOfKeys;
+  plot=0;
+  argument:number[][];
+  yearList=[2009,2010,2011,2012,2013,2014,2015,2016,2017];
 
   // constructor() { }
   // constructor(private httpClient: HttpClient) {}
 
   constructor(private chartsService: VisualsService, private httpClient: HttpClient) {
-    this.BarOption = this.chartsService.getBarOption();
-    this.LineOption = this.chartsService.getLineOption();
-    this.PieOption = this.chartsService.getPieOption();
-    this.AnimationBarOption = this.chartsService.getAnimationBarOption();
+  }
+  
+  ngOnInit() {
   }
 
-  ngOnInit() {
+  scatterPredVsActual(){
+    this.httpClient.get("http://127.0.0.1:5003/scatter").subscribe((data) => {
+      this.serverData = data as JSON;
+      console.log(this.serverData);
+      this.arrayOfKeys = Object.keys(this.serverData)
+      this.argument = [];
+      this.arrayOfKeys.forEach(element => {
+        this.argument.push([this.serverData[element].US_Viewers_In_Millions, this.serverData[element].Predicted_Viewership]);
+      });
+      console.log(this.argument);
+      this.ScatterOption = this.chartsService.getScatterOption(this.argument);
+      this.plot = 1;
+    })
+  }
+
+  lineTweetsPerYear(){
+    this.httpClient.get("http://127.0.0.1:5003/line1").subscribe((data) => {
+      console.log(data);
+      this.LineOption = this.chartsService.getLineOption(
+        this.yearList,
+        data
+      )
+    });
+    this.plot=2;
+  }
+
+  lineImdb(){
+    this.httpClient.get("http://127.0.0.1:5003/line2").subscribe((data) => {
+      console.log(data);
+      this.GradientOption = this.chartsService.getGradientOption(
+        data['ep'],
+        data['imdb']
+      )
+    });
+    this.plot=3;
+  }
+
+  barActualVsPredicted(){
+    this.httpClient.get("http://127.0.0.1:5003/bar").subscribe((data) => {
+      this.serverData = data as JSON;
+      console.log(this.serverData);
+      this.arrayOfKeys = Object.keys(this.serverData)
+      this.argument = [];
+      // this.arrayOfKeys.forEach(element => {
+      //   this.argument.push([this.serverData[element].US_Viewers_In_Millions, this.serverData[element].Predicted_Viewership], this.serverData[element]);
+      // });
+      var x=[], y=[], z=[];
+      this.arrayOfKeys.forEach(element => {
+        x.push(data[element].Air_Date)
+        y.push(data[element].US_Viewers_In_Millions);
+        z.push(data[element].Predicted_Viewership);
+      });
+      console.log(x,y,z);
+      this.AnimationBarOption = this.chartsService.getAnimationBarOption(x,y,z);
+      this.plot = 4;
+    });
   }
 
   wordcloud(data){

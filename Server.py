@@ -9,6 +9,7 @@ import pandas as pd
 import os,inspect
 import Sentiment_Analysis
 import Tweet_Preprocessing
+import json
 
 app = Flask(__name__)
 
@@ -41,6 +42,40 @@ def preprocess():
     if request.method == 'GET':
         Tweet_Preprocessing.main('Tweet_data/tweet_data.csv')
         data = pd.read_csv('Preprocessed_data/tweet_data_preprocessed.csv', usecols=range(13), index_col=False, low_memory=False)
+        return(pd.DataFrame.to_json(data, orient='index'))
+
+@app.route("/scatter", methods = ['POST','GET'])
+def scatter():
+    if request.method == 'GET':
+        data = pd.read_csv('Prediction_data/predicted_file.csv', usecols=range(21), index_col=False, low_memory=False)
+        return(pd.DataFrame.to_json(data, orient='index'))
+
+@app.route("/line1", methods = ['POST','GET'])
+def line1():
+    if request.method == 'GET':
+        res=[]
+        yearList=['2009','2010','2011','2012','2013','2014','2015','2016','2017']
+        for x in yearList:
+            with open('Tweet_Data/tweet_'+x+'.csv') as f:
+                res.append(sum(1 for line in f))
+        return(json.dumps(res))
+
+@app.route("/line2", methods = ['POST','GET'])
+def line2():
+    if request.method == 'GET':
+        res=[]
+        data = pd.read_csv('Prediction_data/simpsons_episodes.csv', usecols=range(19), index_col=False, low_memory=False)
+        data.dropna(inplace = True)
+        res = {
+            "ep": data['Air_Date'].tolist(),
+            "imdb": data['IMDB_Rating'].tolist()
+        }
+        return(json.dumps(res))
+
+@app.route("/bar", methods = ['POST','GET'])
+def bar():
+    if request.method == 'GET':
+        data = pd.read_csv('Prediction_data/predicted_file.csv', usecols=range(21), index_col=False, low_memory=False)
         return(pd.DataFrame.to_json(data, orient='index'))
 
 @app.route("/sentiment", methods = ['POST','GET'])

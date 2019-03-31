@@ -12,27 +12,27 @@ export let MENU_ITEM = [
     {
         path: 'preprocess',
         title: 'Tweet Preprocessing',
-        icon: 'search'
+        icon: 'edit'
     },
     {
         path: 'sentiment',
         title: 'Sentiment Analysis',
-        icon: 'search'
+        icon: 'database'
     },
     {
         path: 'visuals',
         title: 'Visualisation',
         icon: 'bar-chart'
     },
-    {
-        path: 'charts',
-        title: 'Charts',
-        icon: 'bar-chart',
-        children: [
-            {
-                path: 'echarts',
-                title: 'Echarts'
-            }
-        ]
-    },
+    // {
+    //     path: 'charts',
+    //     title: 'Charts',
+    //     icon: 'bar-chart',
+    //     children: [
+    //         {
+    //             path: 'echarts',
+    //             title: 'Echarts'
+    //         }
+    //     ]
+    // },
 ];

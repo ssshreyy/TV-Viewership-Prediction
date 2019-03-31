@@ -8,8 +8,8 @@ import { GlobalService } from '../../services/global.service';
 })
 export class PagesTopComponent {
   avatarImgSrc: string = 'assets/images/avatar.png';
-  userName: string = 'Folisise Chosielie';
-  userPost: string = 'Musician, Player';
+  userName: string = 'Major Project';
+  userPost: string = '2018-19';
 
 
   sidebarToggle: boolean = true;
@@ -18,11 +18,6 @@ export class PagesTopComponent {
   constructor(private _globalService: GlobalService) { }
 
   public _sidebarToggle() {
-    /* this._globalService.sidebarToggle$.subscribe(sidebarToggle => {
-      this.sidebarToggle = sidebarToggle;
-    }, error => {
-      console.log('Error: ' + error);
-    }); */
 
     this._globalService.data$.subscribe(data => {
       if (data.ev === 'sidebarToggle') {
