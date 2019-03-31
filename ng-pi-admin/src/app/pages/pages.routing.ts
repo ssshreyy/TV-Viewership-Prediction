@@ -22,7 +22,8 @@ export const childRoutes: Routes = [
             { path: 'table', loadChildren: './table/table.module#TableModule' },
             { path: 'menu-levels', loadChildren: './menu-levels/menu-levels.module#MenuLevelsModule' },
             { path: 'preprocess', loadChildren: './preprocess/preprocess.module#PreprocessModule' },         
-            { path: 'visuals', loadChildren: './visuals/visuals.module#VisualsModule' }
+            { path: 'visuals', loadChildren: './visuals/visuals.module#VisualsModule' },
+            { path: 'sentiment', loadChildren: './sentiment/sentiment.module#SentimentModule' }            
         ]
     }
 ];

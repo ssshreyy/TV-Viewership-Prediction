@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { routing } from './visuals.routing';
+import { routing } from './sentiment.routing';
 import { SharedModule } from '../../shared/shared.module';
-import { VisualsComponent } from './visuals.component';
+import { SentimentComponent } from './sentiment.component';
 import { HttpClientModule } from "@angular/common/http";
-import { FormsModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
     imports: [
+        NgxPaginationModule,
         CommonModule,
         SharedModule,
         routing,
@@ -15,7 +17,7 @@ import { FormsModule } from '@angular/forms'
         FormsModule
     ],
     declarations: [
-        VisualsComponent
+        SentimentComponent
     ]
 })
-export class VisualsModule { }
+export class SentimentModule { }

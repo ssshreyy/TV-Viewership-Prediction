@@ -7,6 +7,7 @@ from flask import render_template
 import LiveTweetSearch
 import pandas as pd
 import os,inspect
+import Sentiment_Analysis
 import Tweet_Preprocessing
 
 app = Flask(__name__)
@@ -42,6 +43,12 @@ def preprocess():
         data = pd.read_csv('Preprocessed_data/tweet_data_preprocessed.csv', usecols=range(13), index_col=False, low_memory=False)
         return(pd.DataFrame.to_json(data, orient='index'))
 
+@app.route("/sentiment", methods = ['POST','GET'])
+def sentiment():
+    if request.method == 'GET':
+        Sentiment_Analysis.main('./Preprocessed_data/preprocessed_training_data.csv')
+        data = pd.read_csv('Prediction_data/tweet_data_predict.csv', usecols=range(15), index_col=False, low_memory=False)
+        return(pd.DataFrame.to_json(data, orient='index'))
 
 @app.route("/search", methods = ['POST','GET'])
 def search():
