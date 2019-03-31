@@ -152,6 +152,7 @@ def main(simpsons_file):
     plt.legend()
     plt.show()
     print("Done")
+    print("Done2")
 
 
 if __name__ == '__main__':
