@@ -54,14 +54,9 @@ def train_classifier(features_train, features_test, label_train, label_test, cla
         r2_test = r2_score(label_test, y_test_predict)
 
         # print("The model performance for the training set")
-        # print("-------------------------------------------")
         # print("RMSE of training set is {}".format(rmse_train))
         # print("R2 score of training set is {}".format(r2_train))
-        #
-        # print("\n")
-        #
         # print("The model performance for the test set")
-        # print("-------------------------------------------")
         # print("RMSE of test set is {}".format(rmse_test))
         # print("R2 score of test set is {}".format(r2_test))
     elif classifier == "Random_Forest":
@@ -82,9 +77,7 @@ def train_classifier(features_train, features_test, label_train, label_test, cla
 
     accuracy = model.score(features_test, label_test)
     print("Accuracy Is:", accuracy)
-
     return model
-
 
 def main(simpsons_file):
 
