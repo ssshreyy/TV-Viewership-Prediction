@@ -116,24 +116,11 @@ def main(simpsons_file):
     model = train_classifier(x_train, x_test, y_train, y_test, algorithm,1)
     print("Model Training Complete")
 
-    # viewer_data['Predicted_Viewership'] = model.predict(x)
-    # viewer_data.to_csv('./Prediction_data/predicted_file.csv')
-
-    # print(model.predict(x_test))
-    # print(y_test)
-
     flat_list = []
     for sublist in y:
         for item in sublist:
             flat_list.append(item)
 
-    # plt.scatter(model.predict(x), flat_list, label='skitscat', color='k', s=25, marker="o")
-    # plt.xlabel('Prediction')
-    # plt.ylabel('Reality')
-    # plt.title('Prediction vs Reality')
-    # plt.legend()
-    # plt.show()
-    # print("Done")
 
     scaler = MinMaxScaler( feature_range = (0, 1))
     x = scaler.fit_transform(x_temp)
@@ -152,8 +139,6 @@ def main(simpsons_file):
     plt.legend()
     plt.show()
     print("Done")
-    print("Done2")
-
 
 if __name__ == '__main__':
     main('./Prediction_data/simpsons_episodes.csv')
