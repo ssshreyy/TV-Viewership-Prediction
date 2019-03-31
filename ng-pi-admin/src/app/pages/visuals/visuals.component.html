@@ -1,8 +1,13 @@
 <div class="row">
     <div class="col-md-12">
         <card cardTitle="Data Visualisations for The Simpsons Tweets and Episodes">
+            <div class="col-md-12">
+                <card cardTitle='Line Chart'>
+                    <div echarts [options]="LineOption" [loading]="showloading" theme="dark" class="demo-chart"></div>
+                </card>
+            </div>
+
             <form #cloudForm = "ngForm" name="wordcloudForm" method="POST" class="form-group" (ngSubmit)="wordcloud(cloudForm.value)">
-            <!-- <form> -->
                 <label class="control-label">Select Show</label>
                 <select name="show" id="show" class="form-control" ngModel>
                     <option value="TheSimpsons">The Simpsons</option>

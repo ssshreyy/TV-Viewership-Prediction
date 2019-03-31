@@ -25,29 +25,6 @@ export let MENU_ITEM = [
         icon: 'bar-chart'
     },
     {
-        path: 'form',
-        title: 'Forms',
-        icon: 'check-square-o',
-        children: [
-            {
-                path: 'form-inputs',
-                title: 'Form Inputs'
-            },
-            {
-                path: 'form-layouts',
-                title: 'Form Layouts'
-            },
-            {
-                path: 'file-upload',
-                title: 'File Upload'
-            },
-            {
-                path: 'ng2-select',
-                title: 'Ng2-Select'
-            }
-        ]
-    },
-    {
         path: 'charts',
         title: 'Charts',
         icon: 'bar-chart',
