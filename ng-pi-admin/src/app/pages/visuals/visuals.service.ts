@@ -34,9 +34,11 @@ export class VisualsService {
                 trigger: 'axis'
             },
             xAxis: [{
+                name: 'Air Date',
                 data: x,
                 splitLine: {show: true}
             }, {
+                name: 'Air Date',
                 data: x,
                 gridIndex: 1,
                 splitLine: {show: true}
@@ -90,8 +92,13 @@ export class VisualsService {
 
         this.ScatterOption = {
             type: 'value',
-            xAxis: {},
-            yAxis: {},
+            xAxis: {
+                name: 'Actual Viewership'
+            },
+            yAxis: {
+                name: 'Predicted Viewership'
+
+            },
             series: [{
                 symbolSize: 6,
                 data: scatterData,
@@ -104,28 +111,63 @@ export class VisualsService {
         return this.ScatterOption;
     }
 
-    getBarOption(x,y1,y2) {
-        this.BarOption = {
-            legend: {},
-            tooltip: {},
-            dataset: {
-                source: [
-                    ['product', '2015', '2016', '2017'],
-                    ['Matcha Latte', 43.3, 85.8, 93.7],
-                    ['Milk Tea', 83.1, 73.4, 55.1],
-                    ['Cheese Cocoa', 86.4, 65.2, 82.5],
-                    ['Walnut Brownie', 72.4, 53.9, 39.1]
-                ]
+    getBarOption(year,pos,neg) {
+        this.BarOption ={
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    crossStyle: {
+                        color: '#999'
+                    }
+                }
             },
-            xAxis: {type: 'category'},
-            yAxis: {},
-            // Declare several bar series, each will be mapped
-            // to a column of dataset.source by default.
+            toolbox: {
+                feature: {
+                    dataView: {show: true, readOnly: false},
+                    magicType: {show: true, type: ['line', 'bar']},
+                    restore: {show: true},
+                    saveAsImage: {show: true}
+                }
+            },
+            legend: {
+                data:['Positive','Negative']
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    name: 'Year',
+                    data: year,
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    name: 'Number of Tweets',
+                    min: 0,
+                    max: 160000,
+                    interval: 10000,
+                    axisLabel: {
+                        formatter: '{value}'
+                    }
+                }
+            ],
             series: [
-                {type: 'bar'},
-                {type: 'bar'},
-                {type: 'bar'}
-            ]
+                {
+                    name:'Negative',
+                    type:'bar',
+                    data:neg
+                },
+                {
+                    name:'Positive',
+                    type:'bar',
+                    data:pos
+                }
+            ],
+            color: ['#DC143C','#32CD32']
         };
 
         // this.BarOption = {
@@ -186,9 +228,11 @@ export class VisualsService {
             xAxis: {
                 type: 'category',
                 data: xLineData,
-                splitLine: {show: true}
+                splitLine: {show: true},
+                name: 'Year'
             },
             yAxis: {
+                name: 'Number of Tweets',
                 type: 'value',
                 splitLine: {show: true}
             },
@@ -201,6 +245,7 @@ export class VisualsService {
         };
         return this.LineOption;
     }
+    
     getPieOption() {
         this.PieOption = {
             tooltip: {
@@ -235,18 +280,18 @@ export class VisualsService {
                 data: ['Actual Viewership', 'Predicted Viewership'],
                 align: 'left'
             },
-            /* toolbox: {
-                // y: 'bottom',
-                feature: {
-                    magicType: {
-                        type: ['stack', 'tiled']
-                    },
-                    dataView: {},
-                    saveAsImage: {
-                        pixelRatio: 2
-                    }
-                }
-            }, */
+            // toolbox: {
+            //     // y: 'bottom',
+            //     feature: {
+            //         magicType: {
+            //             type: ['stack', 'tiled']
+            //         },
+            //         dataView: {},
+            //         saveAsImage: {
+            //             pixelRatio: 2
+            //         }
+            //     }
+            // }, 
             tooltip: {},
             xAxis: {
                 data: xAxisData,
@@ -276,7 +321,7 @@ export class VisualsService {
             animationDelayUpdate: function (idx) {
                 return idx * 5;
             },
-            color: ['red','yellow']
+            color: ['black','yellow']
         };
 
         return this.AnimationBarOption;

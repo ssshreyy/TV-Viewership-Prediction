@@ -95,7 +95,7 @@ def bar():
 @app.route("/bar2", methods = ['POST','GET'])
 def bar2():
     if request.method == 'GET':
-        fileNames = ['2009','2010','2009','2010','2011','2012','2013','2014','2015','2016','2017']
+        fileNames = ['2009','2010','2011','2012','2013','2014','2015','2016','2017']
         df = pd.DataFrame()
         pos=[]
         neg=[]

@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# Exporter initial
 import sys
 import getopt
 import codecs

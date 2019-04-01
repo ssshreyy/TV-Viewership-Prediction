@@ -82,18 +82,24 @@ export class VisualsComponent implements OnInit {
 
   barPosNeg(){
     this.httpClient.get("http://127.0.0.1:5003/bar2").subscribe((data) => {
-      console.log(data);
+      // console.log(data);
+      console.log(data)
+      var pos=[], neg=[],year=[];
+      this.arrayOfKeys = Object.keys(data);
+      this.arrayOfKeys.forEach(element => {
+        year[element]=data[element].Year;
+        pos[element]=data[element].Pos;
+        neg[element]=data[element].Neg;
+      });
       this.BarOption = this.chartsService.getBarOption(
-        data['Year'],
-        data['Pos'],
-        data['Neg']
+        year,
+        pos,
+        neg
       );
-      console.log(data['Year'],
-      data['Pos'],
-      data['Neg']);
+
     });
    
-    this.plot=5;
+    this.plot=6;
   }
 
   barActualVsPredicted(){
