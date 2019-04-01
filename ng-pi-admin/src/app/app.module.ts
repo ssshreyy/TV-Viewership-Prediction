@@ -5,20 +5,20 @@ import { PagesModule } from './pages/pages.module';
 import { routing } from './app.routing';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PreprocessModule } from './pages/preprocess/preprocess.module';
-import { VisualsModule } from './pages/visuals/visuals.module';
-import { SentimentModule } from './pages/sentiment/sentiment.module';
+// import { PreprocessModule } from './pages/preprocess/preprocess.module';
+// import { VisualsModule } from './pages/visuals/visuals.module';
+// import { SentimentModule } from './pages/sentiment/sentiment.module';
 
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    PreprocessModule,
-    VisualsModule,
+    // PreprocessModule,
+    // VisualsModule,
     PagesModule,
     routing,
-    SentimentModule
+    // SentimentModule
   ],
   declarations: [
     AppComponent,

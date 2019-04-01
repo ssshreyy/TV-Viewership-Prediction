@@ -64,11 +64,11 @@ export class VisualsService {
             xAxis: {},
             yAxis: {},
             series: [{
-                symbolSize: 7,
+                symbolSize: 8,
                 data: scatterData,
                 type: 'scatter'
             }],
-            color: ['blue']
+            color: ['DeepSkyBlue']
         };
 
         return this.ScatterOption;
@@ -138,7 +138,8 @@ export class VisualsService {
                 data: yLineData,
                 type: 'line',
                 smooth: true
-            }]
+            }],
+            color: ['green']
         };
         return this.LineOption;
     }

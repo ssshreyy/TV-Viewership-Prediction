@@ -8,24 +8,22 @@
                 </card>
             </div>
 
-            <button type="button" value="line1" class="btn btn-info" (click)="lineTweetsPerYear()">Line Chart: Tweets per Year</button>
+            <button type="button" value="line1" class="btn btn-success" (click)="lineTweetsPerYear()">Line Chart: Tweets per Year</button>
             <div class="col-md-12" *ngIf="plot==2">
                 <card cardTitle='Line Chart: Tweets per Year'>
                     <div echarts [options]="LineOption" [loading]="showloading" theme="dark" class="demo-chart"></div>
                 </card>
             </div>
-
-            <button type="button" value="line1" class="btn btn-info" (click)="lineImdb()">Line Chart: IMDB Rating vs Episodes</button>
-            <div class="col-md-12" *ngIf="plot==3">
-                <card cardTitle='Line Chart: IMDB Rating vs Episodes'>
-                    <div echarts [options]="GradientOption" [loading]="showloading" theme="dark" class="demo-chart"></div>
-                </card>
-            </div>
-
-            <button type="button" value="bar1" class="btn btn-info" (click)="barActualVsPredicted()">Bar Chart: Actual and Predicted Viewership</button>
+            <button type="button" value="bar1" class="btn btn-primary" (click)="barActualVsPredicted()">Bar Chart: Actual and Predicted Viewership</button>
             <div class="col-md-12" *ngIf="plot==4">
                 <card cardTitle='Bar Chart: Actual and Predicted Viewership'>
                     <div echarts [options]="AnimationBarOption" [loading]="showloading" theme="dark" class="demo-chart"></div>
+                </card>
+            </div>
+            <button type="button" value="line1" class="btn btn-danger" (click)="lineImdb()">Line Chart: IMDB Rating vs Episodes</button>
+            <div class="col-md-12" *ngIf="plot==3">
+                <card cardTitle='Line Chart: IMDB Rating vs Episodes'>
+                    <div echarts [options]="GradientOption" [loading]="showloading" theme="dark" class="demo-chart"></div>
                 </card>
             </div>
         </card>
