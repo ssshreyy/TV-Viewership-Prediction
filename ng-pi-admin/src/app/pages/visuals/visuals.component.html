@@ -1,29 +1,42 @@
 <div class="row">
     <div class="col-md-12">
-        <card cardTitle="Data Visualisation">
+        <card cardTitle="Data Visualisation for 'The Simpsons'">
             <button type="button" value="scatter1" class="btn btn-info" (click)="scatterPredVsActual()">ScatterPlot: Predicted and Actual Viewership</button>
+            <button type="button" value="line1" class="btn btn-success" (click)="lineTweetsPerYear()">Line Chart: Tweets per Year</button>
+            <button type="button" value="bar1" class="btn btn-primary" (click)="barActualVsPredicted()">Bar Chart: Actual and Predicted Viewership</button>  
+            <button type="button" value="line2" class="btn btn-danger" (click)="lineImdb()">Line Chart: IMDB Rating vs Episodes</button>
+            <button type="button" value="line3" class="btn btn-warning" (click)="lineViews()">Line Chart: IMDB Rating vs Episodes</button>
+            <button type="button" value="bar2" class="btn btn-warning" (click)="barPosNeg()">Positive and Negative Tweets per Year</button>
+            
+
             <div class="col-md-12" *ngIf="plot==1">
                 <card cardTitle='Scatter Plot: Actual Viewership v/s Expected Viewership'>
                     <div echarts [options]="ScatterOption" [loading]="showloading" theme="dark" class="demo-chart"></div>
                 </card>
             </div>
-
-            <button type="button" value="line1" class="btn btn-success" (click)="lineTweetsPerYear()">Line Chart: Tweets per Year</button>
             <div class="col-md-12" *ngIf="plot==2">
                 <card cardTitle='Line Chart: Tweets per Year'>
                     <div echarts [options]="LineOption" [loading]="showloading" theme="dark" class="demo-chart"></div>
                 </card>
             </div>
-            <button type="button" value="bar1" class="btn btn-primary" (click)="barActualVsPredicted()">Bar Chart: Actual and Predicted Viewership</button>
             <div class="col-md-12" *ngIf="plot==4">
                 <card cardTitle='Bar Chart: Actual and Predicted Viewership'>
                     <div echarts [options]="AnimationBarOption" [loading]="showloading" theme="dark" class="demo-chart"></div>
                 </card>
             </div>
-            <button type="button" value="line1" class="btn btn-danger" (click)="lineImdb()">Line Chart: IMDB Rating vs Episodes</button>
             <div class="col-md-12" *ngIf="plot==3">
                 <card cardTitle='Line Chart: IMDB Rating vs Episodes'>
                     <div echarts [options]="GradientOption" [loading]="showloading" theme="dark" class="demo-chart"></div>
+                </card>
+            </div>
+            <div class="col-md-12" *ngIf="plot==5">
+                <card cardTitle='Line Chart: Actual Viewership vs Episodes'>
+                    <div echarts [options]="GradientOption" [loading]="showloading" theme="dark" class="demo-chart"></div>
+                </card>
+            </div>
+            <div class="col-md-12" *ngIf="plot==6">
+                <card cardTitle='Positive and Negative Tweets per Year'>
+                    <div echarts [options]="BarOption" [loading]="showloading" theme="dark" class="demo-chart"></div>
                 </card>
             </div>
         </card>

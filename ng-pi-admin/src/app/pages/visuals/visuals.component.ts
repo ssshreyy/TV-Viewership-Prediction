@@ -69,6 +69,33 @@ export class VisualsComponent implements OnInit {
     this.plot=3;
   }
 
+  lineViews(){
+    this.httpClient.get("http://127.0.0.1:5003/line3").subscribe((data) => {
+      console.log(data);
+      this.GradientOption = this.chartsService.getGradientOption(
+        data['ep'],
+        data['views']
+      )
+    });
+    this.plot=5;
+  }
+
+  barPosNeg(){
+    this.httpClient.get("http://127.0.0.1:5003/bar2").subscribe((data) => {
+      console.log(data);
+      this.BarOption = this.chartsService.getBarOption(
+        data['Year'],
+        data['Pos'],
+        data['Neg']
+      );
+      console.log(data['Year'],
+      data['Pos'],
+      data['Neg']);
+    });
+   
+    this.plot=5;
+  }
+
   barActualVsPredicted(){
     this.httpClient.get("http://127.0.0.1:5003/bar").subscribe((data) => {
       this.serverData = data as JSON;

@@ -72,11 +72,44 @@ def line2():
         }
         return(json.dumps(res))
 
+
+@app.route("/line3", methods = ['POST','GET'])
+def line3():
+    if request.method == 'GET':
+        res=[]
+        data = pd.read_csv('Prediction_data/simpsons_episodes.csv', usecols=range(19), index_col=False, low_memory=False)
+        data.dropna(inplace = True)
+        res = {
+            "ep": data['Air_Date'].tolist(),
+            "views": data['US_Viewers_In_Millions'].tolist()
+        }
+        return(json.dumps(res))
+
 @app.route("/bar", methods = ['POST','GET'])
 def bar():
     if request.method == 'GET':
         data = pd.read_csv('Prediction_data/predicted_file.csv', usecols=range(21), index_col=False, low_memory=False)
         return(pd.DataFrame.to_json(data, orient='index'))
+
+
+@app.route("/bar2", methods = ['POST','GET'])
+def bar2():
+    if request.method == 'GET':
+        fileNames = ['2009','2010','2009','2010','2011','2012','2013','2014','2015','2016','2017']
+        df = pd.DataFrame()
+        pos=[]
+        neg=[]
+        for x in fileNames:
+            data = pd.read_csv('Prediction_data/tweet_'+x+'_predict.csv', usecols=range(15), index_col=False, low_memory=False)
+            temp = data['Sentiment_Score'].value_counts()
+            # print(temp)
+            pos.append(temp[4])
+            neg.append(temp[0])
+        df['Year'] = fileNames
+        df['Pos'] = pos
+        df['Neg'] = neg
+        print(df)
+        return(pd.DataFrame.to_json(df, orient='index'))
 
 @app.route("/sentiment", methods = ['POST','GET'])
 def sentiment():

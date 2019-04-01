@@ -34,15 +34,17 @@ export class VisualsService {
                 trigger: 'axis'
             },
             xAxis: [{
-                data: x
+                data: x,
+                splitLine: {show: true}
             }, {
                 data: x,
-                gridIndex: 1
+                gridIndex: 1,
+                splitLine: {show: true}
             }],
             yAxis: [{
-                splitLine: {show: false}
+                splitLine: {show: true}
             }, {
-                splitLine: {show: false},
+                splitLine: {show: true},
                 gridIndex: 1
             }],
             grid: [{
@@ -59,14 +61,42 @@ export class VisualsService {
     }
 
     getScatterOption(scatterData) {
+        var markLineOpt = {
+            animation: false,
+            label: {
+                normal: {
+                    formatter: 'y =x',
+                    textStyle: {
+                        align: 'right'
+                    }
+                }
+            },
+            lineStyle: {
+                normal: {
+                    type: 'dashed'
+                }
+            },
+            tooltip: {
+                formatter: 'y = x'
+            },
+            data: [[{
+                coord: [0, 0],
+                symbol: 'none'
+            }, {
+                coord: [12000000, 12000000],
+                symbol: 'none'
+            }]]
+        };
+
         this.ScatterOption = {
             type: 'value',
             xAxis: {},
             yAxis: {},
             series: [{
-                symbolSize: 8,
+                symbolSize: 6,
                 data: scatterData,
-                type: 'scatter'
+                type: 'scatter',
+                markLine: markLineOpt
             }],
             color: ['DeepSkyBlue']
         };
@@ -74,20 +104,10 @@ export class VisualsService {
         return this.ScatterOption;
     }
 
-    getBarOption() {
+    getBarOption(x,y1,y2) {
         this.BarOption = {
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {
-                    type: 'shadow'
-                }
-            },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                containLabel: true
-            },
+            legend: {},
+            tooltip: {},
             dataset: {
                 source: [
                     ['product', '2015', '2016', '2017'],
@@ -97,42 +117,80 @@ export class VisualsService {
                     ['Walnut Brownie', 72.4, 53.9, 39.1]
                 ]
             },
-            xAxis: [
-                {
-                    type: 'category',
-                    // data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                    axisTick: {
-                        alignWithLabel: true
-                    }
-                }
-            ],
-            yAxis: [
-                {
-                    // type: 'value'
-                }
-            ],
+            xAxis: {type: 'category'},
+            yAxis: {},
+            // Declare several bar series, each will be mapped
+            // to a column of dataset.source by default.
             series: [
-                {
-                    // name: '直接访问',
-                    type: 'bar',
-                    // barWidth: '60%',
-                    // data: [10, 52, 200, 334, 390, 330, 220]
-                },
-                { type: 'bar' },
-                { type: 'bar' }
+                {type: 'bar'},
+                {type: 'bar'},
+                {type: 'bar'}
             ]
         };
 
+        // this.BarOption = {
+        //     tooltip: {
+        //         trigger: 'axis',
+        //         axisPointer: {
+        //             type: 'shadow'
+        //         }
+        //     },
+        //     grid: {
+        //         left: '3%',
+        //         right: '4%',
+        //         bottom: '3%',
+        //         containLabel: true
+        //     },
+        //     dataset: {
+        //         source: [
+        //             ['Sentiment', 'Positive', 'Negative'],
+        //             ['Matcha Latte', 43.3, 85.8],
+        //             ['Milk Tea', 83.1, 73.4],
+        //             ['Cheese Cocoa', 86.4, 65.2],
+        //             ['Walnut Brownie', 72.4, 53.9]                    
+        //         ]
+        //     },
+        //     xAxis: [
+        //         {
+        //             type: 'category',
+        //             data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        //             axisTick: {
+        //                 alignWithLabel: true
+        //             }
+        //         }
+        //     ],
+        //     yAxis: [
+        //         {
+        //             // type: 'value'
+        //         }
+        //     ],
+        //     series: [
+        //         {
+        //             // name: '直接访问',
+        //             type: 'bar',
+        //             // barWidth: '60%',
+        //             // data: [10, 52, 200, 334, 390, 330, 220]
+        //         },
+        //         { type: 'bar' },
+        //         { type: 'bar' }
+        //     ]
+        // };
+
+        // x.forEach(element => {
+        //     this.AnimationBarOption.BarOption['dataset']['source'].append([x[element],y1[element],y2[element]])
+        // });
         return this.BarOption;
     }
     getLineOption(xLineData, yLineData) {
         this.LineOption = {
             xAxis: {
                 type: 'category',
-                data: xLineData
+                data: xLineData,
+                splitLine: {show: true}
             },
             yAxis: {
-                type: 'value'
+                type: 'value',
+                splitLine: {show: true}
             },
             series: [{
                 data: yLineData,
