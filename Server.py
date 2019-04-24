@@ -77,11 +77,12 @@ def line2():
 def line3():
     if request.method == 'GET':
         res=[]
-        data = pd.read_csv('Prediction_data/simpsons_episodes.csv', usecols=range(19), index_col=False, low_memory=False)
+        data = pd.read_csv('Prediction_data/predicted_file.csv', usecols=range(21), index_col=False, low_memory=False)
         data.dropna(inplace = True)
         res = {
             "ep": data['Air_Date'].tolist(),
-            "views": data['US_Viewers_In_Millions'].tolist()
+            "views": data['US_Viewers_In_Millions'].tolist(),
+            "predicted": data['Predicted_Viewership'].tolist()
         }
         return(json.dumps(res))
 

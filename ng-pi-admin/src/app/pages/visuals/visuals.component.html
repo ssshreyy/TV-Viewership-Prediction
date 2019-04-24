@@ -5,7 +5,7 @@
             <button type="button" value="line1" class="btn btn-success" (click)="lineTweetsPerYear()">Line Chart: Tweets per Year</button>
             <button type="button" value="bar1" class="btn btn-primary" (click)="barActualVsPredicted()">Bar Chart: Actual and Predicted Viewership</button>  
             <button type="button" value="line2" class="btn btn-danger" (click)="lineImdb()">Line Chart: IMDB Rating vs Episodes</button>
-            <button type="button" value="line3" class="btn btn-warning" (click)="lineViews()">Line Chart: Actual Viewership vs Episodes</button>
+            <button type="button" value="line3" class="btn btn-warning" (click)="lineViews()">Line Chart: Viewership vs Episodes</button>
             <button type="button" value="bar2" class="btn btn-warning" (click)="barPosNeg()">Positive and Negative Tweets per Year</button>
             
 
@@ -30,7 +30,7 @@
                 </card>
             </div>
             <div class="col-md-12" *ngIf="plot==5">
-                <card cardTitle='Line Chart: Actual Viewership vs Episodes'>
+                <card cardTitle='Line Chart: Viewership vs Episodes'>
                     <div echarts [options]="GradientOption" [loading]="showloading" theme="dark" class="demo-chart"></div>
                 </card>
             </div>

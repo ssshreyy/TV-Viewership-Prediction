@@ -72,9 +72,10 @@ export class VisualsComponent implements OnInit {
   lineViews(){
     this.httpClient.get("http://127.0.0.1:5003/line3").subscribe((data) => {
       console.log(data);
-      this.GradientOption = this.chartsService.getGradientOption(
+      this.GradientOption = this.chartsService.getGradientOption2(
         data['ep'],
-        data['views']
+        data['views'],
+        data['predicted']
       )
     });
     this.plot=5;

@@ -169,60 +169,9 @@ export class VisualsService {
             ],
             color: ['#DC143C','#32CD32']
         };
-
-        // this.BarOption = {
-        //     tooltip: {
-        //         trigger: 'axis',
-        //         axisPointer: {
-        //             type: 'shadow'
-        //         }
-        //     },
-        //     grid: {
-        //         left: '3%',
-        //         right: '4%',
-        //         bottom: '3%',
-        //         containLabel: true
-        //     },
-        //     dataset: {
-        //         source: [
-        //             ['Sentiment', 'Positive', 'Negative'],
-        //             ['Matcha Latte', 43.3, 85.8],
-        //             ['Milk Tea', 83.1, 73.4],
-        //             ['Cheese Cocoa', 86.4, 65.2],
-        //             ['Walnut Brownie', 72.4, 53.9]                    
-        //         ]
-        //     },
-        //     xAxis: [
-        //         {
-        //             type: 'category',
-        //             data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-        //             axisTick: {
-        //                 alignWithLabel: true
-        //             }
-        //         }
-        //     ],
-        //     yAxis: [
-        //         {
-        //             // type: 'value'
-        //         }
-        //     ],
-        //     series: [
-        //         {
-        //             // name: '直接访问',
-        //             type: 'bar',
-        //             // barWidth: '60%',
-        //             // data: [10, 52, 200, 334, 390, 330, 220]
-        //         },
-        //         { type: 'bar' },
-        //         { type: 'bar' }
-        //     ]
-        // };
-
-        // x.forEach(element => {
-        //     this.AnimationBarOption.BarOption['dataset']['source'].append([x[element],y1[element],y2[element]])
-        // });
         return this.BarOption;
     }
+
     getLineOption(xLineData, yLineData) {
         this.LineOption = {
             xAxis: {
@@ -245,7 +194,115 @@ export class VisualsService {
         };
         return this.LineOption;
     }
-    
+
+    getGradientOption2(xLineData, yLineData, yLineData2) {
+        return {
+            title: {
+                
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['Actual','Predicted']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: xLineData
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    name:'Actual Viewership',
+                    type:'line',
+                    data:yLineData
+                },
+                {
+                    name:'Predicted Viewership',
+                    type:'line',
+                    data:yLineData2
+                }
+            ],
+            color:['red','aqua']
+        };
+        
+
+        // return {
+            
+        //     visualMap: [{
+        //         show: false,
+        //         type: 'continuous',
+        //         seriesIndex: 0,
+        //         min: 0,
+        //         max: 15000000
+        //     },
+        //     {
+        //         show: false,
+        //         type: 'continuous',
+        //         seriesIndex: 0,
+        //         min: 0,
+        //         max: 15000000
+        //     }],
+        
+        //     tooltip: {
+        //         trigger: 'axis'
+        //     },
+        //     legend: {
+        //         data: ['Example1', 'Example2']
+        //     },
+        //     xAxis: [{
+        //         name: 'Air Date',
+        //         data: xLineData,
+        //         splitLine: {show: true}
+        //     }, {
+        //         name: 'Air Date',
+        //         data: xLineData,
+        //         gridIndex: 1,
+        //         splitLine: {show: true}
+        //     }],
+        //     yAxis: [{
+        //         name:'Viewership',
+        //         splitLine: {show: true}
+        //     }, {
+        //         // name:'Viewership',
+        //         splitLine: {show: true},
+        //         gridIndex: 1
+        //     }],
+        //     grid: [{
+        //         bottom: '15%'
+        //     }, {
+        //         top: '30%'
+        //     }],
+        //     series: [
+        //         {
+        //             type: 'line',
+        //             showSymbol: false,
+        //             data: yLineData
+        //         },
+        //         {
+        //             type:'line',
+        //             showSymbol: false,
+        //             data: yLineData2
+        //         }
+        //     ],
+        //     color: ['#000080','aqua']
+        // };
+    }
+
     getPieOption() {
         this.PieOption = {
             tooltip: {
@@ -280,27 +337,17 @@ export class VisualsService {
                 data: ['Actual Viewership', 'Predicted Viewership'],
                 align: 'left'
             },
-            // toolbox: {
-            //     // y: 'bottom',
-            //     feature: {
-            //         magicType: {
-            //             type: ['stack', 'tiled']
-            //         },
-            //         dataView: {},
-            //         saveAsImage: {
-            //             pixelRatio: 2
-            //         }
-            //     }
-            // }, 
             tooltip: {},
             xAxis: {
                 data: xAxisData,
                 silent: false,
                 splitLine: {
                     show: true
-                }
+                },
+                name:'Air Date'
             },
             yAxis: {
+                name: 'Viewership'
             },
             series: [{
                 name: 'Actual',
